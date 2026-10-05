@@ -303,6 +303,46 @@ header{
   .report-table tr{page-break-inside:avoid}
   .report-cover{page-break-after:avoid}
 }
+/* ===== Multi-select Roles ===== */
+.ms-wrap{position:relative;user-select:none}
+.ms-display{
+  width:100%;min-height:44px;border:1px solid var(--line-2);border-radius:var(--radius-sm);
+  padding:9px 12px;background:var(--surface);cursor:pointer;display:flex;
+  flex-wrap:wrap;gap:5px;align-items:center;transition:.2s;
+}
+.ms-display:hover{border-color:var(--orange)}
+.ms-display.open{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-dim)}
+.ms-placeholder{color:var(--text-3);font-size:13px}
+.ms-chip{
+  background:var(--orange-dim);color:var(--orange-2);border:1px solid rgba(232,93,31,.3);
+  border-radius:7px;padding:3px 8px;font-size:12px;font-weight:700;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.ms-chip b{cursor:pointer;font-size:14px;line-height:1;opacity:.7}
+.ms-chip b:hover{opacity:1;color:#ff8b7d}
+.ms-dropdown{
+  display:none;position:absolute;top:calc(100% + 4px);right:0;left:0;
+  background:var(--card-2);border:1px solid var(--line-2);border-radius:var(--radius-sm);
+  max-height:220px;overflow-y:auto;z-index:50;box-shadow:0 10px 32px rgba(0,0,0,.6);
+}
+.ms-dropdown.open{display:block}
+.ms-option{
+  padding:10px 12px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:9px;
+  transition:.15s;color:var(--text);
+}
+.ms-option:hover{background:var(--surface)}
+.ms-option.selected{background:var(--orange-dim);color:var(--orange-2);font-weight:700}
+.ms-check{
+  width:17px;height:17px;border:1.5px solid var(--line-2);border-radius:5px;
+  display:grid;place-items:center;flex-shrink:0;
+}
+.ms-option.selected .ms-check{background:var(--orange);border-color:var(--orange);color:#fff}
+.ms-check svg{width:11px;height:11px;opacity:0}
+.ms-option.selected .ms-check svg{opacity:1}
+.ms-add{
+  border-top:1px solid var(--line);color:var(--orange);font-weight:800;
+  justify-content:center;padding:11px;
+}  
 </style>
 </head>
 <body>
@@ -522,7 +562,7 @@ function optionHtml(list, selected, placeholder){
   return html;
 }
 function fillVenueSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.venues, val, 'اختر المكان'); }
-function fillNameSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.names, val, 'اختر الشخص'); }
+function fillNameSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.names, val, 'اختر العبد'); }
 function fillRoleSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.roles, val, 'اختر الوظيفة'); }
 
 function handleAddOption(select, type){
@@ -549,6 +589,7 @@ function handleAddOption(select, type){
 function addPersonRow(data = {}){
   const wrap = document.createElement('div');
   wrap.className = 'person-row';
+  const selected = data.roles || (data.role ? [data.role] : []);
   wrap.innerHTML = `
     <div class="person-top">
       <span class="person-num">مشارك</span>
@@ -556,25 +597,92 @@ function addPersonRow(data = {}){
     </div>
     <div class="grid">
       <div class="field" style="margin:0">
-        <label>اسم الشخص</label>
+        <label>االعبد</label>
         <select class="pname"></select>
       </div>
       <div class="field" style="margin:0">
-        <label>الوظيفة / المهمة <small style="color:#7a7a88;font-weight:normal">(افصل بين الوظائف بفاصلة)</small></label>
-        <input type="text" class="prole" list="rolesDatalist" placeholder="مثال: مصور، منظم، DJ">
+        <label>الوظيفة / المهمة <small style="color:#7a7a88;font-weight:normal">(اضغط لاختيار أكثر من وظيفة)</small></label>
+        <div class="ms-wrap">
+          <div class="ms-display"><span class="ms-placeholder">اختر الوظائف...</span></div>
+          <div class="ms-dropdown"></div>
+        </div>
       </div>
     </div>
   `;
   const nameSel = wrap.querySelector('.pname');
-  const roleInput = wrap.querySelector('.prole');
-  
   fillNameSelect(nameSel, data.name || '');
-  if (data.roles) roleInput.value = data.roles.join('، ');
-  
   handleAddOption(nameSel, 'names');
   wrap.querySelector('.removePerson').onclick = () => wrap.remove();
+
+  const display = wrap.querySelector('.ms-display');
+  const dropdown = wrap.querySelector('.ms-dropdown');
+  wrap._getRoles = () => selected.slice();
+
+  function renderDisplay(){
+    if(!selected.length){
+      display.innerHTML = '<span class="ms-placeholder">اختر الوظائف...</span>';
+      return;
+    }
+    display.innerHTML = selected.map(r =>
+      `<span class="ms-chip">${esc(r)}<b data-remove="${esc(r)}">×</b></span>`
+    ).join('');
+    display.querySelectorAll('b[data-remove]').forEach(b => {
+      b.onclick = e => {
+        e.stopPropagation();
+        const i = selected.indexOf(b.dataset.remove);
+        if(i > -1) selected.splice(i,1);
+        renderDisplay(); renderDropdown();
+      };
+    });
+  }
+
+  function renderDropdown(){
+    dropdown.innerHTML = db.settings.roles.map(r => `
+      <div class="ms-option${selected.includes(r) ? ' selected' : ''}" data-role="${esc(r)}">
+        <span class="ms-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        <span>${esc(r)}</span>
+      </div>
+    `).join('') + `<div class="ms-option ms-add" data-add-new>➕ إضافة وظيفة جديدة</div>`;
+
+    dropdown.querySelectorAll('.ms-option[data-role]').forEach(op => {
+      op.onclick = e => {
+        e.stopPropagation();
+        const r = op.dataset.role;
+        const i = selected.indexOf(r);
+        if(i > -1) selected.splice(i,1); else selected.push(r);
+        renderDisplay(); renderDropdown();
+      };
+    });
+    dropdown.querySelector('[data-add-new]').onclick = e => {
+      e.stopPropagation();
+      const v = prompt('أدخل اسم الوظيفة الجديدة:');
+      if(v && v.trim()){
+        const val = v.trim();
+        if(!db.settings.roles.includes(val)){ db.settings.roles.push(val); saveDB(); }
+        if(!selected.includes(val)) selected.push(val);
+        renderDisplay(); renderDropdown();
+      }
+    };
+  }
+
+  display.onclick = e => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.contains('open');
+    document.querySelectorAll('.ms-dropdown.open').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.ms-display.open').forEach(d => d.classList.remove('open'));
+    if(!isOpen){ dropdown.classList.add('open'); display.classList.add('open'); }
+  };
+
+  renderDisplay();
+  renderDropdown();
   $('peopleRows').appendChild(wrap);
 }
+
+// Close dropdowns when clicking anywhere else
+document.addEventListener('click', () => {
+  document.querySelectorAll('.ms-dropdown.open').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.ms-display.open').forEach(d => d.classList.remove('open'));
+});
 
 /* ================= Form ================= */
 function clearForm(){
@@ -591,7 +699,7 @@ function collectForm(){
   const people = [...document.querySelectorAll('.person-row')]
     .map(r => ({
       name: r.querySelector('.pname').value,
-      roles: r.querySelector('.prole').value.split(/[،,]+/).map(s => s.trim()).filter(Boolean)
+      roles: r._getRoles ? r._getRoles() : []
     }))
     .filter(p => p.name);
   return {
