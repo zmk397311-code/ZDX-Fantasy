@@ -460,6 +460,7 @@ header{
 </div>
 
 <div class="toast" id="toast"></div>
+  <datalist id="rolesDatalist"></datalist>
 
 <script>
 /* ================= Service Worker ================= */
@@ -555,21 +556,22 @@ function addPersonRow(data = {}){
     </div>
     <div class="grid">
       <div class="field" style="margin:0">
-        <label>العبد</label>
+        <label>اسم الشخص</label>
         <select class="pname"></select>
       </div>
       <div class="field" style="margin:0">
-        <label>الوظيفة / المهمة</label>
-        <select class="prole"></select>
+        <label>الوظيفة / المهمة <small style="color:#7a7a88;font-weight:normal">(افصل بين الوظائف بفاصلة)</small></label>
+        <input type="text" class="prole" list="rolesDatalist" placeholder="مثال: مصور، منظم، DJ">
       </div>
     </div>
   `;
   const nameSel = wrap.querySelector('.pname');
-  const roleSel = wrap.querySelector('.prole');
+  const roleInput = wrap.querySelector('.prole');
+  
   fillNameSelect(nameSel, data.name || '');
-  fillRoleSelect(roleSel, data.role || '');
+  if (data.roles) roleInput.value = data.roles.join('، ');
+  
   handleAddOption(nameSel, 'names');
-  handleAddOption(roleSel, 'roles');
   wrap.querySelector('.removePerson').onclick = () => wrap.remove();
   $('peopleRows').appendChild(wrap);
 }
@@ -589,7 +591,7 @@ function collectForm(){
   const people = [...document.querySelectorAll('.person-row')]
     .map(r => ({
       name: r.querySelector('.pname').value,
-      role: r.querySelector('.prole').value
+      roles: r.querySelector('.prole').value.split(/[،,]+/).map(s => s.trim()).filter(Boolean)
     }))
     .filter(p => p.name);
   return {
@@ -628,7 +630,10 @@ function editEvent(id){
   $('eventActs').value = e.acts || '';
   $('eventNotes').value = e.notes || '';
   $('peopleRows').innerHTML = '';
-  e.people.forEach(addPersonRow);
+  e.people.forEach(p => addPersonRow({ 
+    name: p.name, 
+    roles: p.roles || (p.role ? [p.role] : []) 
+  }));
   $('saveEventBtn').dataset.edit = id;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -676,7 +681,7 @@ function renderEvents(){
       </div>
       ${e.acts ? `<div class="mini">🎬 ${esc(e.acts)}</div>` : ''}
       <ul class="list">
-        ${e.people.map(p => `<li><b>${esc(p.name)}</b><span>${esc(p.role || '—')}</span></li>`).join('')}
+        ${e.people.map(p => `<li><b>${esc(p.name)}</b><span>${esc((p.roles || (p.role ? [p.role] : [])).join('، ') || '—')}</span></li>`).join('')}
       </ul>
       <div class="actions no-print" style="margin-top:10px">
         <button class="btn ghost" style="padding:8px 14px;font-size:12px" onclick="editEvent('${e.id}')">✏ تعديل</button>
@@ -692,8 +697,9 @@ function personSummary(arr){
     if(!p.name) return;
     if(!map[p.name]) map[p.name] = { count: 0, roles: new Set(), items: [] };
     map[p.name].count++;
-    if(p.role) map[p.name].roles.add(p.role);
-    map[p.name].items.push({ date: e.date, venue: e.venue, role: p.role });
+    const pRoles = p.roles || (p.role ? [p.role] : []);
+    pRoles.forEach(r => { if(r) map[p.name].roles.add(r); });
+    map[p.name].items.push({ date: e.date, venue: e.venue, roles: pRoles });
   }));
   return map;
 }
@@ -704,9 +710,12 @@ function calcEstimate(events){
   const rows = events.map(e => {
     let mn = 0, mx = 0;
     e.people.forEach(p => {
-      const r = db.settings.rates[p.role] || { min: 0, max: 0 };
-      mn += Number(r.min) || 0;
-      mx += Number(r.max) || 0;
+      const pRoles = p.roles || (p.role ? [p.role] : []);
+      pRoles.forEach(role => {
+        const r = db.settings.rates[role] || { min: 0, max: 0 };
+        mn += Number(r.min) || 0;
+        mx += Number(r.max) || 0;
+      });
     });
     totalMin += mn; totalMax += mx;
     return { event: e, min: mn, max: mx };
@@ -802,7 +811,7 @@ function renderReport(){
               <td>
                 ${v.items.map(i => `
                   <div style="font-size:11px;color:#444;margin-bottom:2px">
-                    ${fmtDateShort(i.date)} — ${esc(i.venue)} — ${esc(i.role || '—')}
+                    ${fmtDateShort(i.date)} — ${esc(i.venue)} — ${esc((i.roles || (i.role ? [i.role] : [])).join('، ') || '—')}
                   </div>`).join('')}
               </td>
               <td style="text-align:center"><b>${v.count}</b></td>
@@ -878,14 +887,16 @@ function renderAll(){
 }
 
 function fillAllSelects(){
-  // Venue
   const venueSel = $('eventVenue');
   const vCur = venueSel.value;
   fillVenueSelect(venueSel, vCur);
-  // Person rows
   $$('.pname').forEach(s => { const cur = s.value; fillNameSelect(s, cur); });
-  $$('.prole').forEach(s => { const cur = s.value; fillRoleSelect(s, cur); });
-  // Report event select
+  
+  const datalist = $('rolesDatalist');
+  if (datalist) {
+    datalist.innerHTML = db.settings.roles.map(r => `<option value="${esc(r)}">`).join('');
+  }
+  
   const evSel = $('reportEvent');
   const eCur = evSel.value;
   const sorted = [...db.events].sort((a,b) => b.date.localeCompare(a.date));
