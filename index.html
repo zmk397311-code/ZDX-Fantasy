@@ -766,7 +766,7 @@ function renderReport(){
           <th>التاريخ</th>
           <th>المكان</th>
           <th>الفقرات</th>
-          <th>التوالف</th>
+          <th>الملاحظات</th>
         </tr>
       </thead>
       <tbody>
@@ -775,10 +775,7 @@ function renderReport(){
             <td>${fmtDate(e.date)}</td>
             <td>${esc(e.venue)}</td>
             <td>${esc(e.acts || '—')}</td>
-            <td>
-              <b>${e.people.length}</b>
-              <span class="crew">${e.people.map(p => esc(p.name)).join('، ')}</span>
-            </td>
+            <td>${esc(e.notes || '—')}</td>
           </tr>`).join('')}
       </tbody>
     </table>`;
