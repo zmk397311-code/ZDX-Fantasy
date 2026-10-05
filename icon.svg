@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#172033"/><circle cx="256" cy="220" r="125" fill="#d7a84b"/><path d="M150 315h212v40H150z" fill="#fff" opacity=".95"/><text x="256" y="265" text-anchor="middle" font-family="Arial" font-size="140" font-weight="800" fill="#172033">F</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#0d0d10"/>
+  <text x="256" y="330" font-family="Impact,'Arial Black',sans-serif" font-weight="900" font-size="260" fill="#e85d1f" text-anchor="middle" letter-spacing="-6">FG</text>
+  <rect x="110" y="380" width="292" height="14" fill="#e85d1f" rx="7"/>
+</svg>

@@ -1,59 +1,1103 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#172033"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="فانتسي">
-<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.svg">
-<title>فانتسي | سجل الحفلات</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0d10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FG Elite">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>FG Elite | سجل الحفلات</title>
 <style>
-:root{--navy:#172033;--navy2:#24324a;--gold:#d7a84b;--bg:#f4f6fa;--card:#fff;--text:#172033;--muted:#6b7280;--danger:#c94b4b;--line:#e5e7eb;--ok:#278a68}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}button,input,select,textarea{font:inherit}header{background:linear-gradient(135deg,var(--navy),#0d1422);color:#fff;padding:22px 18px 18px;position:sticky;top:0;z-index:10;box-shadow:0 3px 16px #0002}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:14px;background:#fff1;display:grid;place-items:center;border:1px solid #ffffff25;overflow:hidden}.logo img{width:100%;height:100%;object-fit:contain}.brand h1{font-size:21px;margin:0}.brand p{font-size:12px;color:#cbd5e1;margin:3px 0 0}.container{max-width:760px;margin:auto;padding:16px 14px 95px}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:0 0 16px}.tab{border:0;background:#e9edf4;color:#4b5563;border-radius:12px;padding:10px 4px;font-weight:700;font-size:12px}.tab.active{background:var(--navy);color:#fff}.view{display:none}.view.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:13px;box-shadow:0 5px 20px #17203308}.card h2{font-size:17px;margin:0 0 14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{margin-bottom:11px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:#4b5563}.field input,.field select,.field textarea{width:100%;border:1px solid #d7dce4;border-radius:11px;padding:11px 12px;background:#fff;outline:none}.field textarea{min-height:72px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px #d7a84b22}.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800;cursor:pointer}.primary{background:var(--navy);color:#fff}.gold{background:var(--gold);color:#172033}.ghost{background:#eef1f5;color:var(--navy)}.danger{background:#feecec;color:var(--danger)}.full{width:100%}.actions{display:flex;gap:8px;flex-wrap:wrap}.person-row{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:9px;background:#fbfcfe}.person-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.person-num{font-weight:800;font-size:13px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:var(--navy);color:#fff;border-radius:15px;padding:13px}.stat small{display:block;color:#cbd5e1;font-size:11px}.stat strong{display:block;font-size:24px;margin-top:3px}.event{border:1px solid var(--line);border-radius:15px;padding:13px;margin-bottom:10px}.event-head{display:flex;justify-content:space-between;gap:8px}.event-date{font-weight:900}.pill{background:#edf2f7;border-radius:999px;padding:5px 9px;font-size:11px}.mini{font-size:12px;color:var(--muted);margin-top:5px}.list{margin:10px 0 0;padding:0;list-style:none}.list li{padding:8px 0;border-top:1px solid #eef0f3;font-size:13px}.empty{text-align:center;color:var(--muted);padding:28px 10px}.report{background:#fff;border-radius:18px;padding:20px}.report-cover{text-align:center;border-bottom:2px solid var(--navy);padding:22px 8px 25px;margin-bottom:18px}.report-cover h1{font-size:28px;margin:8px 0}.report-cover h2{font-size:18px;margin:0;color:#475569}.report-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}.report-table th,.report-table td{border:1px solid #dfe3e8;padding:7px;text-align:right}.report-table th{background:var(--navy);color:#fff}.note{font-size:12px;color:var(--muted);line-height:1.7}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#172033;color:#fff;padding:11px 16px;border-radius:999px;display:none;z-index:99;font-size:13px}.topline{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}.search{margin-bottom:10px}@media(max-width:520px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}.tab{font-size:11px;padding:9px 2px}}
-@media print{header,.tabs,.no-print{display:none!important}body{background:#fff}.container{max-width:none;padding:0}.view{display:none!important}.view#reportView{display:block!important}.report{box-shadow:none;border:0;padding:0}.report-cover{page-break-after:avoid}}
-</style></head>
-<body>
-<header><div class="brand"><div class="logo"><span style="font-size:22px">F</span></div><div><h1>فانتسي</h1><p>سجل الحفلات والمشاركين</p></div></div></header>
-<main class="container">
-<nav class="tabs"><button class="tab active" data-view="home">الرئيسية</button><button class="tab" data-view="add">إضافة حفلة</button><button class="tab" data-view="events">الحفلات</button><button class="tab" data-view="report">التقرير</button></nav>
-<section id="homeView" class="view active">
-<div class="card"><div class="topline"><h2>ملخص الشهر</h2><input id="monthPicker" type="month" style="max-width:160px;border:1px solid #d7dce4;border-radius:10px;padding:8px"></div><div class="stats"><div class="stat"><small>الحفلات</small><strong id="statEvents">0</strong></div><div class="stat"><small>الأشخاص</small><strong id="statPeople">0</strong></div><div class="stat"><small>المشاركات</small><strong id="statEntries">0</strong></div></div></div>
-<div class="card"><h2>آخر الحفلات</h2><div id="homeEvents"></div></div>
-<div class="card no-print"><h2>النسخ الاحتياطي</h2><p class="note">احفظ نسخة من بياناتك على جهازك بشكل دوري. يمكنك استعادتها لاحقًا حتى لا تفقد السجل إذا تغيّر الجهاز أو المتصفح.</p><div class="actions"><button class="btn ghost" id="backupBtn">تصدير نسخة احتياطية</button><button class="btn ghost" id="restoreBtn">استعادة نسخة</button><input id="restoreInput" type="file" accept="application/json" hidden></div></div>
-</section>
-<section id="addView" class="view"><div class="card"><h2 id="formTitle">إضافة حفلة جديدة</h2><div class="grid"><div class="field"><label>تاريخ الحفلة *</label><input id="eventDate" type="date"></div><div class="field"><label>المكان *</label><select id="eventVenue"></select></div></div><div class="field"><label>الفقرات / الأنشطة</label><textarea id="eventActs" placeholder="مثال: go gambo - bubble - dogs"></textarea></div><div class="field"><label>ملاحظات</label><textarea id="eventNotes" placeholder="أي ملاحظة عن الحفلة"></textarea></div></div>
-<div class="card"><div class="topline"><h2>المشاركون</h2><button class="btn gold" id="addPersonBtn">+ إضافة شخص</button></div><div id="peopleRows"></div><p class="note">يمكنك إضافة عدد غير محدود من الأشخاص. لكل شخص اختر الاسم والوظيفة/المهمة والنشاط الذي قام به.</p></div>
-<div class="actions"><button class="btn primary" id="saveEventBtn">حفظ الحفلة</button><button class="btn ghost" id="clearFormBtn">مسح</button></div></section>
-<section id="eventsView" class="view"><div class="card"><div class="topline"><h2>سجل الحفلات</h2><button class="btn gold" id="newEventBtn">+ حفلة</button></div><input class="search" id="eventSearch" placeholder="بحث بالتاريخ أو المكان أو الفقرات"><div id="eventsList"></div></div></section>
-<section id="reportView" class="view"><div class="card no-print"><div class="topline"><h2>إنشاء التقرير</h2><input id="reportMonth" type="month" style="max-width:160px;border:1px solid #d7dce4;border-radius:10px;padding:8px"></div><button class="btn primary full" id="printBtn">📄 طباعة / حفظ كـ PDF</button></div><div class="report" id="reportContent"></div></section>
-</main><div class="toast" id="toast"></div>
-<script>
-if ('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-const KEY='fantasy_events_v1';
-const defaults={venues:['GATE MALL','BOWLING MALL'],names:['بيبو','كرومي','بو لبن','عدنان','جسوم','بووليد','عبد الهادي','أحمد'],roles:['مصور','منظم','مقدم','DJ','طالب','مساعد مقدم','عازف','فني'],acts:[]};
-let db=JSON.parse(localStorage.getItem(KEY)||'null')||{events:[],settings:defaults};
-function saveDB(){localStorage.setItem(KEY,JSON.stringify(db));}
-function $(id){return document.getElementById(id)}
-function toast(s){$('toast').textContent=s;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',1800)}
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
-function monthOf(d){return d.slice(0,7)}
-function fmt(d){if(!d)return '';let [y,m,day]=d.split('-');return `${day}/${m}/${y}`}
-function fillSelects(){
- $('eventVenue').innerHTML='<option value="">اختر المكان</option>'+db.settings.venues.map(v=>`<option>${esc(v)}</option>`).join('');
+:root{
+  --bg:#0d0d10;--surface:#16161c;--card:#1c1c24;--card-2:#23232d;
+  --line:#2a2a36;--line-2:#3a3a48;
+  --orange:#e85d1f;--orange-2:#ff7a3d;--orange-dim:rgba(232,93,31,.15);
+  --text:#f2f2f6;--text-2:#b8b8c4;--text-3:#7a7a88;
+  --ok:#2ecc71;--danger:#e74c3c;
+  --radius:18px;--radius-sm:12px;
+  --shadow:0 8px 32px rgba(0,0,0,.5);
 }
-function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function addPersonRow(data={}){const wrap=document.createElement('div');wrap.className='person-row';wrap.dataset.id=uid();wrap.innerHTML=`<div class="person-top"><span class="person-num">مشارك</span><button class="btn danger removePerson">حذف</button></div><div class="grid"><div class="field"><label>اسم الشخص</label><select class="pname"><option value="">اختر الشخص</option>${db.settings.names.map(n=>`<option ${data.name===n?'selected':''}>${esc(n)}</option>`).join('')}</select></div><div class="field"><label>الوظيفة / المهمة</label><select class="prole"><option value="">اختر الوظيفة</option>${db.settings.roles.map(r=>`<option ${data.role===r?'selected':''}>${esc(r)}</option>`).join('')}</select></div></div><div class="field"><label>النشاط / الفقرة التي قام بها</label><input class="pact" value="${esc(data.act||'')}" placeholder="مثال: يوني كورن + مقدم"></div>`;wrap.querySelector('.removePerson').onclick=()=>wrap.remove();$('peopleRows').appendChild(wrap)}
-function clearForm(){ $('eventDate').value='';$('eventVenue').value='';$('eventActs').value='';$('eventNotes').value='';$('peopleRows').innerHTML='';$('formTitle').textContent='إضافة حفلة جديدة';delete $('saveEventBtn').dataset.edit;addPersonRow() }
-function collectForm(){const people=[...document.querySelectorAll('.person-row')].map(r=>({name:r.querySelector('.pname').value,role:r.querySelector('.prole').value,act:r.querySelector('.pact').value.trim()})).filter(p=>p.name);return {date:$('eventDate').value,venue:$('eventVenue').value,acts:$('eventActs').value.trim(),notes:$('eventNotes').value.trim(),people}}
-function saveEvent(){const x=collectForm();if(!x.date||!x.venue){toast('أدخل التاريخ والمكان');return}if(!x.people.length){toast('أضف شخصًا واحدًا على الأقل');return}const edit=$('saveEventBtn').dataset.edit;if(edit){const i=db.events.findIndex(e=>e.id===edit);if(i>=0)db.events[i]={...db.events[i],...x};toast('تم تعديل الحفلة')}else{db.events.push({id:uid(),...x});toast('تم حفظ الحفلة')}saveDB();clearForm();showView('home');renderAll()}
-function editEvent(id){const e=db.events.find(x=>x.id===id);if(!e)return;showView('add');$('formTitle').textContent='تعديل الحفلة';$('eventDate').value=e.date;$('eventVenue').value=e.venue;$('eventActs').value=e.acts||'';$('eventNotes').value=e.notes||'';$('peopleRows').innerHTML='';e.people.forEach(addPersonRow);$('saveEventBtn').dataset.edit=id;window.scrollTo({top:0,behavior:'smooth'})}
-function deleteEvent(id){if(confirm('هل تريد حذف هذه الحفلة؟')){db.events=db.events.filter(e=>e.id!==id);saveDB();renderAll();toast('تم حذف الحفلة')}}
-function renderEvents(){const q=$('eventSearch').value.trim().toLowerCase();let arr=[...db.events].sort((a,b)=>b.date.localeCompare(a.date));arr=arr.filter(e=>!q||`${e.date} ${e.venue} ${e.acts}`.toLowerCase().includes(q));$('eventsList').innerHTML=arr.length?arr.map(e=>`<div class="event"><div class="event-head"><div><div class="event-date">${fmt(e.date)}</div><div class="mini">${esc(e.venue)}</div></div><span class="pill">${e.people.length} مشارك</span></div><div class="mini">${esc(e.acts||'لا توجد فقرات مسجلة')}</div><ul class="list">${e.people.map(p=>`<li><b>${esc(p.name)}</b> — ${esc(p.role||'بدون وظيفة')}${p.act?' — '+esc(p.act):''}</li>`).join('')}</ul><div class="actions no-print" style="margin-top:9px"><button class="btn ghost" onclick="editEvent('${e.id}')">تعديل</button><button class="btn danger" onclick="deleteEvent('${e.id}')">حذف</button></div></div>`).join(''):'<div class="empty">لا توجد حفلات مسجلة.</div>'}
-function selectedMonth(){return $('monthPicker').value||new Date().toISOString().slice(0,7)}
-function renderHome(){const m=selectedMonth();const arr=db.events.filter(e=>monthOf(e.date)===m);const entries=arr.reduce((n,e)=>n+e.people.length,0);const names=new Set(arr.flatMap(e=>e.people.map(p=>p.name)));$('statEvents').textContent=arr.length;$('statPeople').textContent=names.size;$('statEntries').textContent=entries;$('homeEvents').innerHTML=arr.sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6).map(e=>`<div class="event"><div class="event-head"><b>${fmt(e.date)}</b><span class="pill">${esc(e.venue)}</span></div><div class="mini">${e.people.length} مشارك${e.acts?' · '+esc(e.acts):''}</div></div>`).join('')||'<div class="empty">لا توجد حفلات لهذا الشهر.</div>'}
-function personSummary(arr){const map={};arr.forEach(e=>e.people.forEach(p=>{if(!p.name)return;if(!map[p.name])map[p.name]={count:0,roles:new Set(),items:[]};map[p.name].count++;if(p.role)map[p.name].roles.add(p.role);map[p.name].items.push({date:e.date,venue:e.venue,role:p.role,act:p.act})}));return map}
-function renderReport(){const m=$('reportMonth').value||selectedMonth();const arr=db.events.filter(e=>monthOf(e.date)===m).sort((a,b)=>a.date.localeCompare(b.date));const map=personSummary(arr);const label=new Date(m+'-01').toLocaleDateString('ar-KW',{month:'long',year:'numeric'});$('reportContent').innerHTML=`<div class="report-cover"><div style="font-size:44px">✦</div><h1>فانتسي</h1><h2>التقرير الشهري للحفلات والمشاركين</h2><p>${label}</p></div><h3>ملخص الحفلات</h3><table class="report-table"><thead><tr><th>التاريخ</th><th>المكان</th><th>الفقرات</th><th>المشاركون</th></tr></thead><tbody>${arr.map(e=>`<tr><td>${fmt(e.date)}</td><td>${esc(e.venue)}</td><td>${esc(e.acts||'—')}</td><td>${e.people.length}</td></tr>`).join('')}</tbody></table><h3 style="margin-top:24px">كشف المشاركين</h3><table class="report-table"><thead><tr><th>الشخص</th><th>الوظيفة</th><th>عدد الحفلات</th></tr></thead><tbody>${Object.entries(map).sort((a,b)=>b[1].count-a[1].count).map(([name,v])=>`<tr><td>${esc(name)}</td><td>${esc([...v.roles].join('، ')||'—')}</td><td>${v.count}</td></tr>`).join('')}</tbody></table><h3 style="margin-top:24px">التفاصيل</h3>${Object.entries(map).map(([name,v])=>`<div style="margin:14px 0"><b>${esc(name)} — إجمالي ${v.count} حفلات</b><table class="report-table"><thead><tr><th>التاريخ</th><th>المكان</th><th>الوظيفة</th><th>النشاط</th></tr></thead><tbody>${v.items.map(i=>`<tr><td>${fmt(i.date)}</td><td>${esc(i.venue)}</td><td>${esc(i.role||'—')}</td><td>${esc(i.act||'—')}</td></tr>`).join('')}</tbody></table></div>`).join('')||'<div class="empty">لا توجد بيانات لهذا الشهر.</div>'}`}
-function showView(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));$(v+'View').classList.add('active');document.querySelector(`.tab[data-view="${v}"]`)?.classList.add('active');if(v==='report')renderReport();if(v==='events')renderEvents()}
-function renderAll(){fillSelects();renderHome();renderEvents();renderReport()}
-$('monthPicker').value=new Date().toISOString().slice(0,7);$('reportMonth').value=$('monthPicker').value;fillSelects();addPersonRow();renderAll();
-document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>showView(t.dataset.view));$('addPersonBtn').onclick=()=>addPersonRow();$('saveEventBtn').onclick=saveEvent;$('clearFormBtn').onclick=clearForm;$('newEventBtn').onclick=()=>{clearForm();showView('add')};$('eventSearch').oninput=renderEvents;$('monthPicker').onchange=()=>{renderHome();$('reportMonth').value=$('monthPicker').value;renderReport()};$('reportMonth').onchange=renderReport;$('printBtn').onclick=()=>window.print();
-$('backupBtn').onclick=()=>{const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`fantasy-backup-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(a.href)};
-$('restoreBtn').onclick=()=>$('restoreInput').click();$('restoreInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());if(!x.events||!x.settings)throw Error();db=x;saveDB();renderAll();toast('تمت استعادة البيانات')}catch{toast('ملف النسخة الاحتياطية غير صالح')}};
-</script></body></html>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--text);font-size:15px;line-height:1.5;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
+  min-height:100vh;padding-bottom:90px;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;top:0;left:0;right:0;height:420px;
+  background:radial-gradient(ellipse at top right,rgba(232,93,31,.18),transparent 70%);
+  pointer-events:none;z-index:0;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+
+/* ===== Header ===== */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(13,13,16,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);padding:12px 16px;
+}
+.header-inner{max-width:920px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand-logo{height:42px;width:auto;display:block}
+.icon-btn{
+  width:42px;height:42px;border-radius:12px;border:1px solid var(--line);
+  background:var(--card);color:var(--text);display:grid;place-items:center;cursor:pointer;
+  transition:.2s;
+}
+.icon-btn:hover{border-color:var(--orange);color:var(--orange-2)}
+.icon-btn svg{width:20px;height:20px}
+
+/* ===== Tabs ===== */
+.tabs{
+  max-width:920px;margin:14px auto 0;padding:0 16px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+}
+.tab{
+  border:1px solid var(--line);background:var(--card);color:var(--text-2);
+  border-radius:14px;padding:11px 6px;font-weight:700;font-size:12.5px;
+  cursor:pointer;transition:.2s;position:relative;
+}
+.tab:hover{color:var(--text)}
+.tab.active{
+  background:linear-gradient(180deg,var(--orange),#c94c14);
+  color:#fff;border-color:var(--orange);
+  box-shadow:0 6px 20px rgba(232,93,31,.35);
+}
+
+/* ===== Layout ===== */
+.container{max-width:920px;margin:auto;padding:18px 16px 30px;position:relative;z-index:1}
+.view{display:none;animation:fade .3s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ===== Card ===== */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;margin-bottom:14px;box-shadow:var(--shadow);
+}
+.card h2{font-size:16px;margin:0 0 14px;display:flex;align-items:center;gap:8px;font-weight:800}
+.card h2::before{
+  content:'';width:4px;height:18px;border-radius:2px;
+  background:linear-gradient(180deg,var(--orange),#c94c14);
+}
+
+/* ===== Fields ===== */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--text-2)}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid var(--line-2);border-radius:var(--radius-sm);
+  padding:12px 13px;background:var(--surface);outline:none;transition:.2s;color:var(--text);
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--text-3)}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-dim);
+}
+.field textarea{min-height:76px;resize:vertical}
+
+/* ===== Buttons ===== */
+.btn{
+  border:0;border-radius:var(--radius-sm);padding:11px 16px;font-weight:800;
+  cursor:pointer;transition:.2s;font-size:14px;display:inline-flex;align-items:center;
+  justify-content:center;gap:6px;
+}
+.btn:active{transform:scale(.97)}
+.primary{background:linear-gradient(180deg,var(--orange),#c94c14);color:#fff;box-shadow:0 6px 20px rgba(232,93,31,.3)}
+.primary:hover{background:linear-gradient(180deg,var(--orange-2),var(--orange))}
+.ghost{background:var(--card-2);color:var(--text);border:1px solid var(--line-2)}
+.ghost:hover{border-color:var(--orange);color:var(--orange-2)}
+.danger{background:rgba(231,76,60,.12);color:#ff8b7d;border:1px solid rgba(231,76,60,.3)}
+.danger:hover{background:rgba(231,76,60,.2)}
+.full{width:100%}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ===== Stats ===== */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{
+  background:linear-gradient(145deg,var(--card-2),var(--surface));
+  border:1px solid var(--line);border-radius:16px;padding:14px;position:relative;overflow:hidden;
+}
+.stat::after{
+  content:'';position:absolute;top:0;right:0;width:60px;height:60px;border-radius:50%;
+  background:radial-gradient(circle,var(--orange-dim),transparent 70%);transform:translate(30%,-30%);
+}
+.stat small{display:block;color:var(--text-3);font-size:11px;font-weight:700;margin-bottom:4px;position:relative}
+.stat strong{display:block;font-size:26px;font-weight:900;color:var(--orange-2);position:relative}
+
+/* ===== Event card ===== */
+.event{
+  border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;
+  background:var(--surface);transition:.2s;position:relative;
+}
+.event:hover{border-color:var(--line-2)}
+.event-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.event-date{font-weight:900;font-size:14px;color:var(--orange-2);display:flex;flex-direction:column;gap:2px}
+.event-date small{font-size:11px;color:var(--text-3);font-weight:700}
+.pill{
+  background:var(--orange-dim);color:var(--orange-2);border-radius:999px;
+  padding:5px 10px;font-size:11px;font-weight:800;white-space:nowrap;
+  border:1px solid rgba(232,93,31,.25);
+}
+.mini{font-size:12.5px;color:var(--text-2);margin-top:6px}
+.list{margin:10px 0 0;padding:0;list-style:none}
+.list li{
+  padding:8px 0;border-top:1px solid var(--line);font-size:13px;
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+}
+.list li b{color:var(--text)}
+.list li span{color:var(--text-3);font-size:12px}
+.empty{text-align:center;color:var(--text-3);padding:30px 10px;font-size:13px}
+
+/* ===== Person row ===== */
+.person-row{
+  border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px;
+  background:var(--surface);position:relative;overflow:hidden;
+}
+.person-row::before{
+  content:'';position:absolute;top:0;right:0;width:3px;height:100%;
+  background:linear-gradient(180deg,var(--orange),transparent);
+}
+.person-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.person-num{font-weight:800;font-size:13px;color:var(--orange-2);display:flex;align-items:center;gap:6px}
+.person-num::before{content:'●';color:var(--orange);font-size:10px}
+
+/* ===== Report ===== */
+.report{
+  background:#fff;color:#111;border-radius:var(--radius);padding:26px 22px;
+  box-shadow:var(--shadow);
+}
+.report-cover{
+  text-align:center;border-bottom:3px solid var(--orange);
+  padding:18px 8px 24px;margin-bottom:22px;
+}
+.report-cover img{max-height:70px;margin-bottom:8px}
+.report-cover h1{font-size:24px;margin:6px 0;color:#111;font-weight:900;letter-spacing:-.5px}
+.report-cover h2{font-size:15px;margin:4px 0;color:#555;font-weight:700}
+.report-cover p{margin:8px 0 0;color:#666;font-size:13px}
+.report h3{
+  font-size:15px;margin:26px 0 10px;color:#111;font-weight:900;
+  padding:8px 12px;background:#f4f4f6;border-right:4px solid var(--orange);
+  border-radius:0 8px 8px 0;
+}
+.report-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+.report-table th,.report-table td{border:1px solid #dfe3e8;padding:8px 9px;text-align:right;vertical-align:top}
+.report-table th{background:#16161c;color:#fff;font-weight:800;font-size:11.5px}
+.report-table tr:nth-child(even) td{background:#fafafb}
+.report-table .crew{color:#555;font-size:11px;display:block;margin-top:2px}
+.report-total{
+  margin-top:14px;background:linear-gradient(135deg,#16161c,#2a2a36);
+  color:#fff;border-radius:12px;padding:16px;display:grid;
+  grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;
+}
+.report-total div small{display:block;font-size:11px;color:#b8b8c4;margin-bottom:4px;font-weight:700}
+.report-total div strong{font-size:20px;color:#ff7a3d;font-weight:900}
+.report-empty{text-align:center;color:#888;padding:20px;font-size:13px}
+
+/* ===== Modal ===== */
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);
+  z-index:200;display:none;align-items:flex-end;justify-content:center;
+}
+.modal.open{display:flex;animation:fade .2s}
+.modal-panel{
+  background:var(--card);width:100%;max-width:560px;max-height:88vh;overflow-y:auto;
+  border-radius:22px 22px 0 0;padding:20px;border-top:2px solid var(--orange);
+  animation:slideUp .3s cubic-bezier(.2,.9,.3,1);
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:none}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.modal-head h3{margin:0;font-size:18px;font-weight:900;display:flex;align-items:center;gap:8px}
+.modal-head h3::before{content:'';width:4px;height:20px;background:var(--orange);border-radius:2px}
+.close-btn{
+  width:34px;height:34px;border-radius:10px;border:1px solid var(--line-2);
+  background:var(--card-2);color:var(--text);cursor:pointer;font-size:18px;
+}
+.settings-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+.settings-tab{
+  border:1px solid var(--line);background:var(--surface);color:var(--text-2);
+  border-radius:10px;padding:9px 4px;font-size:11.5px;font-weight:800;cursor:pointer;
+}
+.settings-tab.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.settings-pane{display:none}
+.settings-pane.active{display:block}
+.item-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.item-row{
+  display:flex;gap:8px;align-items:center;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:10px 12px;
+}
+.item-row input[type=text]{flex:1;background:transparent;border:0;outline:none;color:var(--text);font-size:14px}
+.item-row input[type=number]{
+  width:70px;background:var(--card-2);border:1px solid var(--line-2);
+  border-radius:8px;padding:7px 8px;font-size:12px;text-align:center;
+}
+.item-row .del{
+  background:rgba(231,76,60,.12);color:#ff8b7d;border:0;width:30px;height:30px;
+  border-radius:8px;cursor:pointer;font-size:16px;line-height:1;
+}
+.add-row{
+  display:flex;gap:8px;margin-top:10px;
+}
+.add-row input{flex:1;border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;background:var(--surface);color:var(--text);outline:none}
+.add-row input:focus{border-color:var(--orange)}
+.add-row button{background:var(--orange);color:#fff;border:0;border-radius:10px;padding:0 16px;font-weight:900;cursor:pointer}
+.rate-head{display:flex;gap:8px;font-size:11px;color:var(--text-3);font-weight:700;padding:0 12px 6px}
+.rate-head span:first-child{flex:1}
+.rate-head span:nth-child(2),.rate-head span:nth-child(3){width:70px;text-align:center}
+
+/* ===== Toast ===== */
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:linear-gradient(180deg,var(--orange),#c94c14);color:#fff;
+  padding:12px 20px;border-radius:999px;font-size:13px;font-weight:800;z-index:300;
+  opacity:0;pointer-events:none;transition:.3s;
+  box-shadow:0 10px 32px rgba(232,93,31,.4);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ===== Search ===== */
+.search{
+  width:100%;border:1px solid var(--line-2);border-radius:12px;padding:11px 14px;
+  background:var(--surface);outline:none;margin-bottom:12px;color:var(--text);
+}
+.search:focus{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-dim)}
+
+/* ===== Top line ===== */
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.topline h2{margin:0}
+.topline input[type=month],.topline select{
+  border:1px solid var(--line-2);border-radius:10px;padding:9px 12px;
+  background:var(--surface);color:var(--text);outline:none;font-size:13px;
+}
+
+/* ===== Report mode switch ===== */
+.mode-switch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.mode-btn{
+  border:1px solid var(--line-2);background:var(--surface);color:var(--text-2);
+  border-radius:12px;padding:12px;font-weight:800;font-size:13px;cursor:pointer;
+}
+.mode-btn.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+
+/* ===== Responsive ===== */
+@media(max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr 1fr}
+  .tab{font-size:11.5px;padding:10px 3px}
+  .report-total{grid-template-columns:1fr}
+  .brand-logo{height:36px}
+}
+
+/* ===== Print ===== */
+@media print{
+  body{background:#fff;padding:0}
+  body::before{display:none}
+  header,.tabs,.no-print,.toast,.modal{display:none!important}
+  .container{max-width:none;padding:0}
+  .view{display:none!important}
+  .view#reportView{display:block!important}
+  .report{box-shadow:none;border:0;padding:0;border-radius:0;background:#fff}
+  .report h3{page-break-after:avoid}
+  .report-table{page-break-inside:auto}
+  .report-table tr{page-break-inside:avoid}
+  .report-cover{page-break-after:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="header-inner">
+    <img src="logo.svg" alt="FG Elite" class="brand-logo">
+    <button class="icon-btn" id="settingsBtn" title="الإعدادات" aria-label="الإعدادات">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- ================= TABS ================= -->
+<nav class="tabs">
+  <button class="tab active" data-view="home">الرئيسية</button>
+  <button class="tab" data-view="add">إضافة حفلة</button>
+  <button class="tab" data-view="events">السجل</button>
+  <button class="tab" data-view="report">التقرير</button>
+</nav>
+
+<!-- ================= MAIN ================= -->
+<main class="container">
+
+  <!-- HOME -->
+  <section id="homeView" class="view active">
+    <div class="card">
+      <div class="topline">
+        <h2>ملخص الشهر</h2>
+        <input id="monthPicker" type="month">
+      </div>
+      <div class="stats">
+        <div class="stat"><small>الحفلات</small><strong id="statEvents">0</strong></div>
+        <div class="stat"><small>الأشخاص</small><strong id="statPeople">0</strong></div>
+        <div class="stat"><small>المشاركات</small><strong id="statEntries">0</strong></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>آخر الحفلات</h2>
+      <div id="homeEvents"></div>
+    </div>
+    <div class="card no-print">
+      <h2>النسخ الاحتياطي</h2>
+      <p class="mini" style="line-height:1.8">احفظ نسخة من بياناتك بشكل دوري، ويمكنك استعادتها في أي وقت.</p>
+      <div class="actions">
+        <button class="btn ghost" id="backupBtn">⬇ تصدير نسخة</button>
+        <button class="btn ghost" id="restoreBtn">⬆ استعادة نسخة</button>
+        <input id="restoreInput" type="file" accept="application/json" hidden>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADD EVENT -->
+  <section id="addView" class="view">
+    <div class="card">
+      <h2 id="formTitle">إضافة حفلة جديدة</h2>
+      <div class="grid">
+        <div class="field"><label>تاريخ الحفلة *</label><input id="eventDate" type="date"></div>
+        <div class="field"><label>المكان *</label><select id="eventVenue"></select></div>
+      </div>
+      <div class="field"><label>الفقرات / الأنشطة</label><textarea id="eventActs" placeholder="مثال: go gambo - bubble - dogs"></textarea></div>
+      <div class="field"><label>ملاحظات</label><textarea id="eventNotes" placeholder="أي ملاحظة عن الحفلة"></textarea></div>
+    </div>
+    <div class="card">
+      <div class="topline">
+        <h2>المشاركون</h2>
+        <button class="btn primary" id="addPersonBtn" style="padding:9px 14px;font-size:13px">+ إضافة شخص</button>
+      </div>
+      <div id="peopleRows"></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="saveEventBtn" style="flex:1">💾 حفظ الحفلة</button>
+      <button class="btn ghost" id="clearFormBtn">مسح</button>
+    </div>
+  </section>
+
+  <!-- EVENTS LIST -->
+  <section id="eventsView" class="view">
+    <div class="card">
+      <div class="topline">
+        <h2>سجل الحفلات</h2>
+        <button class="btn primary" id="newEventBtn" style="padding:9px 14px;font-size:13px">+ حفلة</button>
+      </div>
+      <input class="search" id="eventSearch" placeholder="🔎 بحث بالتاريخ أو المكان أو الفقرات">
+      <div id="eventsList"></div>
+    </div>
+  </section>
+
+  <!-- REPORT -->
+  <section id="reportView" class="view">
+    <div class="card no-print">
+      <h2>إعداد التقرير</h2>
+      <div class="mode-switch">
+        <button class="mode-btn active" data-mode="month">📅 تقرير شهري</button>
+        <button class="mode-btn" data-mode="event">🎉 تقرير حفلة واحدة</button>
+      </div>
+      <div id="reportMonthWrap">
+        <div class="field"><label>اختر الشهر</label><input id="reportMonth" type="month"></div>
+      </div>
+      <div id="reportEventWrap" style="display:none">
+        <div class="field"><label>اختر الحفلة</label><select id="reportEvent"></select></div>
+      </div>
+      <button class="btn primary full" id="printBtn">📄 طباعة / حفظ PDF</button>
+    </div>
+    <div class="report" id="reportContent"></div>
+  </section>
+
+</main>
+
+<!-- ================= SETTINGS MODAL ================= -->
+<div class="modal" id="settingsModal">
+  <div class="modal-panel">
+    <div class="modal-head">
+      <h3>الإعدادات</h3>
+      <button class="close-btn" id="closeSettings">✕</button>
+    </div>
+    <div class="settings-tabs">
+      <button class="settings-tab active" data-pane="venues">الأماكن</button>
+      <button class="settings-tab" data-pane="names">الأسماء</button>
+      <button class="settings-tab" data-pane="roles">الوظائف</button>
+      <button class="settings-tab" data-pane="rates">الأسعار</button>
+    </div>
+
+    <div class="settings-pane active" data-pane="venues">
+      <div class="item-list" id="venuesList"></div>
+      <div class="add-row">
+        <input id="newVenue" placeholder="أضف مكانًا جديدًا">
+        <button id="addVenueBtn">إضافة</button>
+      </div>
+    </div>
+    <div class="settings-pane" data-pane="names">
+      <div class="item-list" id="namesList"></div>
+      <div class="add-row">
+        <input id="newName" placeholder="أضف اسمًا جديدًا">
+        <button id="addNameBtn">إضافة</button>
+      </div>
+    </div>
+    <div class="settings-pane" data-pane="roles">
+      <div class="item-list" id="rolesList"></div>
+      <div class="add-row">
+        <input id="newRole" placeholder="أضف وظيفة جديدة">
+        <button id="addRoleBtn">إضافة</button>
+      </div>
+    </div>
+    <div class="settings-pane" data-pane="rates">
+      <p class="mini" style="margin:0 0 12px">حدّد السعر الأدنى والأعلى لكل وظيفة (بالدينار) لحساب التقدير المالي في التقرير.</p>
+      <div class="rate-head"><span>الوظيفة</span><span>الأدنى</span><span>الأعلى</span></div>
+      <div class="item-list" id="ratesList"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= Service Worker ================= */
+if ('serviceWorker' in navigator)
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+
+/* ================= Data ================= */
+const KEY = 'fgelite_events_v1';
+const defaults = {
+  venues: ['GATE MALL', 'BOWLING MALL'],
+  names: ['بيبو', 'كرومي', 'بو لبن', 'عدنان', 'جسوم', 'بووليد', 'عبد الهادي', 'أحمد'],
+  roles: ['مصور', 'منظم', 'مقدم', 'DJ', 'طالب', 'مساعد مقدم', 'عازف', 'فني'],
+  rates: {}
+};
+let db = JSON.parse(localStorage.getItem(KEY) || 'null') || { events: [], settings: { ...defaults } };
+// Migration
+if (!db.settings.rates) db.settings.rates = {};
+if (!db.settings.venues) db.settings.venues = [...defaults.venues];
+if (!db.settings.names)  db.settings.names  = [...defaults.names];
+if (!db.settings.roles)  db.settings.roles  = [...defaults.roles];
+
+/* ================= Helpers ================= */
+const $  = id => document.getElementById(id);
+const $$ = sel => document.querySelectorAll(sel);
+const esc = s => String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+const saveDB = () => localStorage.setItem(KEY, JSON.stringify(db));
+const monthOf = d => d.slice(0,7);
+
+function toast(msg){
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove('show'), 1900);
+}
+
+/* Date with day name */
+function fmtDate(d){
+  if(!d) return '';
+  const [y,m,dd] = d.split('-').map(Number);
+  const dt = new Date(y, m-1, dd);
+  const day = dt.toLocaleDateString('ar-KW', { weekday: 'long' });
+  const pad = n => String(n).padStart(2,'0');
+  return `${day} ${pad(dd)}/${pad(m)}/${y}`;
+}
+function fmtDateShort(d){
+  if(!d) return '';
+  const [y,m,dd] = d.split('-').map(Number);
+  const pad = n => String(n).padStart(2,'0');
+  return `${pad(dd)}/${pad(m)}/${y}`;
+}
+
+/* ================= Selects ================= */
+function optionHtml(list, selected, placeholder){
+  let html = `<option value="">${placeholder}</option>`;
+  html += list.map(v => `<option value="${esc(v)}"${v === selected ? ' selected' : ''}>${esc(v)}</option>`).join('');
+  html += `<option value="__add__" style="color:#e85d1f;font-weight:bold">➕ إضافة جديد...</option>`;
+  return html;
+}
+function fillVenueSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.venues, val, 'اختر المكان'); }
+function fillNameSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.names, val, 'اختر الشخص'); }
+function fillRoleSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.roles, val, 'اختر الوظيفة'); }
+
+function handleAddOption(select, type){
+  select.addEventListener('change', () => {
+    if(select.value !== '__add__') return;
+    const v = prompt('أدخل القيمة الجديدة:');
+    if(v && v.trim()){
+      const val = v.trim();
+      const list = db.settings[type];
+      if(!list.includes(val)){ list.push(val); saveDB(); }
+      // re-fill all selects of this type
+      if(type === 'venues') $$('#eventVenue').forEach(s => { const cur = s.value; fillVenueSelect(s, cur); });
+      if(type === 'names')  $$('.pname').forEach(s => { const cur = s.value; fillNameSelect(s, cur); });
+      if(type === 'roles')  $$('.prole').forEach(s => { const cur = s.value; fillRoleSelect(s, cur); });
+      // set the current select to the new value
+      select.value = val;
+    } else {
+      select.value = '';
+    }
+  });
+}
+
+/* ================= Person rows ================= */
+function addPersonRow(data = {}){
+  const wrap = document.createElement('div');
+  wrap.className = 'person-row';
+  wrap.innerHTML = `
+    <div class="person-top">
+      <span class="person-num">مشارك</span>
+      <button class="btn danger removePerson" style="padding:6px 12px;font-size:12px">حذف</button>
+    </div>
+    <div class="grid">
+      <div class="field" style="margin:0">
+        <label>اسم الشخص</label>
+        <select class="pname"></select>
+      </div>
+      <div class="field" style="margin:0">
+        <label>الوظيفة / المهمة</label>
+        <select class="prole"></select>
+      </div>
+    </div>
+  `;
+  const nameSel = wrap.querySelector('.pname');
+  const roleSel = wrap.querySelector('.prole');
+  fillNameSelect(nameSel, data.name || '');
+  fillRoleSelect(roleSel, data.role || '');
+  handleAddOption(nameSel, 'names');
+  handleAddOption(roleSel, 'roles');
+  wrap.querySelector('.removePerson').onclick = () => wrap.remove();
+  $('peopleRows').appendChild(wrap);
+}
+
+/* ================= Form ================= */
+function clearForm(){
+  $('eventDate').value = '';
+  $('eventVenue').value = '';
+  $('eventActs').value = '';
+  $('eventNotes').value = '';
+  $('peopleRows').innerHTML = '';
+  $('formTitle').textContent = 'إضافة حفلة جديدة';
+  delete $('saveEventBtn').dataset.edit;
+  addPersonRow();
+}
+function collectForm(){
+  const people = [...document.querySelectorAll('.person-row')]
+    .map(r => ({
+      name: r.querySelector('.pname').value,
+      role: r.querySelector('.prole').value
+    }))
+    .filter(p => p.name);
+  return {
+    date: $('eventDate').value,
+    venue: $('eventVenue').value,
+    acts: $('eventActs').value.trim(),
+    notes: $('eventNotes').value.trim(),
+    people
+  };
+}
+function saveEvent(){
+  const x = collectForm();
+  if(!x.date || !x.venue){ toast('أدخل التاريخ والمكان'); return; }
+  if(!x.people.length){ toast('أضف شخصًا واحدًا على الأقل'); return; }
+  const edit = $('saveEventBtn').dataset.edit;
+  if(edit){
+    const i = db.events.findIndex(e => e.id === edit);
+    if(i >= 0) db.events[i] = { ...db.events[i], ...x };
+    toast('تم تعديل الحفلة');
+  } else {
+    db.events.push({ id: uid(), ...x });
+    toast('تم حفظ الحفلة');
+  }
+  saveDB();
+  clearForm();
+  showView('home');
+  renderAll();
+}
+function editEvent(id){
+  const e = db.events.find(x => x.id === id);
+  if(!e) return;
+  showView('add');
+  $('formTitle').textContent = 'تعديل الحفلة';
+  $('eventDate').value = e.date;
+  $('eventVenue').value = e.venue;
+  $('eventActs').value = e.acts || '';
+  $('eventNotes').value = e.notes || '';
+  $('peopleRows').innerHTML = '';
+  e.people.forEach(addPersonRow);
+  $('saveEventBtn').dataset.edit = id;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function deleteEvent(id){
+  if(confirm('هل تريد حذف هذه الحفلة؟')){
+    db.events = db.events.filter(e => e.id !== id);
+    saveDB(); renderAll(); toast('تم حذف الحفلة');
+  }
+}
+
+/* ================= Renders ================= */
+function renderHome(){
+  const m = $('monthPicker').value || new Date().toISOString().slice(0,7);
+  const arr = db.events.filter(e => monthOf(e.date) === m);
+  const entries = arr.reduce((n,e) => n + e.people.length, 0);
+  const names = new Set(arr.flatMap(e => e.people.map(p => p.name)));
+  $('statEvents').textContent = arr.length;
+  $('statPeople').textContent = names.size;
+  $('statEntries').textContent = entries;
+  const recent = [...arr].sort((a,b) => b.date.localeCompare(a.date)).slice(0,6);
+  $('homeEvents').innerHTML = recent.length
+    ? recent.map(e => `
+        <div class="event">
+          <div class="event-head">
+            <div class="event-date">${fmtDate(e.date)}</div>
+            <span class="pill">${esc(e.venue)}</span>
+          </div>
+          <div class="mini">${e.people.length} مشارك${e.acts ? ' · ' + esc(e.acts) : ''}</div>
+        </div>`).join('')
+    : '<div class="empty">لا توجد حفلات لهذا الشهر</div>';
+}
+
+function renderEvents(){
+  const q = $('eventSearch').value.trim().toLowerCase();
+  let arr = [...db.events].sort((a,b) => b.date.localeCompare(a.date));
+  arr = arr.filter(e => !q || `${e.date} ${e.venue} ${e.acts}`.toLowerCase().includes(q));
+  $('eventsList').innerHTML = arr.length ? arr.map(e => `
+    <div class="event">
+      <div class="event-head">
+        <div>
+          <div class="event-date">${fmtDate(e.date)}</div>
+          <div class="mini" style="margin-top:2px">📍 ${esc(e.venue)}</div>
+        </div>
+        <span class="pill">${e.people.length} مشارك</span>
+      </div>
+      ${e.acts ? `<div class="mini">🎬 ${esc(e.acts)}</div>` : ''}
+      <ul class="list">
+        ${e.people.map(p => `<li><b>${esc(p.name)}</b><span>${esc(p.role || '—')}</span></li>`).join('')}
+      </ul>
+      <div class="actions no-print" style="margin-top:10px">
+        <button class="btn ghost" style="padding:8px 14px;font-size:12px" onclick="editEvent('${e.id}')">✏ تعديل</button>
+        <button class="btn danger" style="padding:8px 14px;font-size:12px" onclick="deleteEvent('${e.id}')">🗑 حذف</button>
+      </div>
+    </div>`).join('') : '<div class="empty">لا توجد حفلات مسجلة</div>';
+}
+
+/* Person summary */
+function personSummary(arr){
+  const map = {};
+  arr.forEach(e => e.people.forEach(p => {
+    if(!p.name) return;
+    if(!map[p.name]) map[p.name] = { count: 0, roles: new Set(), items: [] };
+    map[p.name].count++;
+    if(p.role) map[p.name].roles.add(p.role);
+    map[p.name].items.push({ date: e.date, venue: e.venue, role: p.role });
+  }));
+  return map;
+}
+
+/* Cost estimate */
+function calcEstimate(events){
+  let totalMin = 0, totalMax = 0;
+  const rows = events.map(e => {
+    let mn = 0, mx = 0;
+    e.people.forEach(p => {
+      const r = db.settings.rates[p.role] || { min: 0, max: 0 };
+      mn += Number(r.min) || 0;
+      mx += Number(r.max) || 0;
+    });
+    totalMin += mn; totalMax += mx;
+    return { event: e, min: mn, max: mx };
+  });
+  return { rows, totalMin, totalMax };
+}
+
+/* ================= Report ================= */
+let reportMode = 'month';
+
+function renderReport(){
+  const content = $('reportContent');
+
+  let events = [];
+  let periodLabel = '';
+  let coverTitle = '';
+
+  if(reportMode === 'month'){
+    const m = $('reportMonth').value || new Date().toISOString().slice(0,7);
+    events = db.events.filter(e => monthOf(e.date) === m).sort((a,b) => a.date.localeCompare(b.date));
+    periodLabel = new Date(m + '-01').toLocaleDateString('ar-KW', { month: 'long', year: 'numeric' });
+    coverTitle = 'التقرير الشهري';
+  } else {
+    const id = $('reportEvent').value;
+    const e = db.events.find(x => x.id === id);
+    if(e){
+      events = [e];
+      periodLabel = fmtDate(e.date) + ' — ' + e.venue;
+      coverTitle = 'تقرير حفلة';
+    } else {
+      periodLabel = '—';
+      coverTitle = 'تقرير حفلة';
+    }
+  }
+
+  // --- Empty state ---
+  if(!events.length){
+    content.innerHTML = `
+      <div class="report-cover">
+        <img src="logo.svg" alt="FG Elite">
+        <h1>${coverTitle}</h1>
+        <h2>${periodLabel}</h2>
+      </div>
+      <div class="report-empty">لا توجد بيانات لهذا ${reportMode === 'month' ? 'الشهر' : 'العنصر'}.</div>`;
+    return;
+  }
+
+  const map = personSummary(events);
+  const estimate = calcEstimate(events);
+
+  /* ---------- Section 1: Summary ---------- */
+  const section1 = `
+    <h3>١ — ملخص الحفلات</h3>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>التاريخ</th>
+          <th>المكان</th>
+          <th>الفقرات</th>
+          <th>التوالف</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${events.map(e => `
+          <tr>
+            <td>${fmtDate(e.date)}</td>
+            <td>${esc(e.venue)}</td>
+            <td>${esc(e.acts || '—')}</td>
+            <td>
+              <b>${e.people.length}</b>
+              <span class="crew">${e.people.map(p => esc(p.name)).join('، ')}</span>
+            </td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+
+  /* ---------- Section 2: Participants ---------- */
+  const section2 = `
+    <h3>٢ — كشف المشاركين</h3>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th style="width:22%">الشخص</th>
+          <th style="width:22%">الوظيفة</th>
+          <th>تفاصيل</th>
+          <th style="width:14%">إجمالي الحفلات</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${Object.entries(map)
+          .sort((a,b) => b[1].count - a[1].count)
+          .map(([name, v]) => `
+            <tr>
+              <td><b>${esc(name)}</b></td>
+              <td>${esc([...v.roles].join('، ') || '—')}</td>
+              <td>
+                ${v.items.map(i => `
+                  <div style="font-size:11px;color:#444;margin-bottom:2px">
+                    ${fmtDateShort(i.date)} — ${esc(i.venue)} — ${esc(i.role || '—')}
+                  </div>`).join('')}
+              </td>
+              <td style="text-align:center"><b>${v.count}</b></td>
+            </tr>`).join('')}
+      </tbody>
+    </table>`;
+
+  /* ---------- Section 3: Min/Max Estimate ---------- */
+  const section3 = `
+    <h3>٣ — التقدير المالي (الحد الأدنى / الأعلى)</h3>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>التاريخ</th>
+          <th>المكان</th>
+          <th>عدد المشاركين</th>
+          <th>الحد الأدنى</th>
+          <th>الحد الأعلى</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${estimate.rows.map(r => `
+          <tr>
+            <td>${fmtDateShort(r.event.date)}</td>
+            <td>${esc(r.event.venue)}</td>
+            <td style="text-align:center">${r.event.people.length}</td>
+            <td>${r.min.toFixed(2)} د.ك</td>
+            <td>${r.max.toFixed(2)} د.ك</td>
+          </tr>`).join('')}
+      </tbody>
+    </table>
+    <div class="report-total">
+      <div><small>إجمالي الحد الأدنى</small><strong>${estimate.totalMin.toFixed(2)} د.ك</strong></div>
+      <div><small>إجمالي الحد الأعلى</small><strong>${estimate.totalMax.toFixed(2)} د.ك</strong></div>
+      <div><small>المتوسط التقريبي</small><strong>${((estimate.totalMin + estimate.totalMax) / 2).toFixed(2)} د.ك</strong></div>
+    </div>
+    <p style="font-size:11px;color:#777;margin-top:14px;text-align:center">
+      * الأسعار تقديرية بناءً على المعدلات المحددة في الإعدادات لكل وظيفة.
+    </p>`;
+
+  /* ---------- Full report ---------- */
+  content.innerHTML = `
+    <div class="report-cover">
+      <img src="logo.svg" alt="FG Elite">
+      <h1>${coverTitle}</h1>
+      <h2>${periodLabel}</h2>
+      <p>إجمالي الحفلات: ${events.length} — إجمالي المشاركات: ${events.reduce((n,e) => n + e.people.length, 0)}</p>
+    </div>
+    ${section1}
+    ${section2}
+    ${section3}
+    <p style="text-align:center;font-size:11px;color:#999;margin-top:26px">
+      تم إنشاء التقرير بتاريخ ${new Date().toLocaleDateString('ar-KW')} — FG Elite
+    </p>`;
+}
+
+/* ================= Views ================= */
+function showView(v){
+  $$('.view').forEach(x => x.classList.remove('active'));
+  $$('.tab').forEach(x => x.classList.remove('active'));
+  $(v + 'View').classList.add('active');
+  document.querySelector(`.tab[data-view="${v}"]`)?.classList.add('active');
+  if(v === 'report') renderReport();
+  if(v === 'events') renderEvents();
+  if(v === 'add')    fillAllSelects();
+}
+
+function renderAll(){
+  fillAllSelects();
+  renderHome();
+  renderEvents();
+  renderReport();
+}
+
+function fillAllSelects(){
+  // Venue
+  const venueSel = $('eventVenue');
+  const vCur = venueSel.value;
+  fillVenueSelect(venueSel, vCur);
+  // Person rows
+  $$('.pname').forEach(s => { const cur = s.value; fillNameSelect(s, cur); });
+  $$('.prole').forEach(s => { const cur = s.value; fillRoleSelect(s, cur); });
+  // Report event select
+  const evSel = $('reportEvent');
+  const eCur = evSel.value;
+  const sorted = [...db.events].sort((a,b) => b.date.localeCompare(a.date));
+  evSel.innerHTML = '<option value="">اختر الحفلة</option>' +
+    sorted.map(e => `<option value="${e.id}"${e.id === eCur ? ' selected' : ''}>${fmtDate(e.date)} — ${esc(e.venue)}</option>`).join('');
+}
+
+/* ================= Settings ================= */
+function openSettings(){
+  $('settingsModal').classList.add('open');
+  renderSettings();
+  document.body.style.overflow = 'hidden';
+}
+function closeSettings(){
+  $('settingsModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderSettings(){
+  // Venues
+  $('venuesList').innerHTML = db.settings.venues.map((v,i) => `
+    <div class="item-row">
+      <input type="text" data-type="venues" data-i="${i}" value="${esc(v)}">
+      <button class="del" data-del="venues" data-i="${i}">✕</button>
+    </div>`).join('') || '<div class="empty" style="padding:14px">لا توجد أماكن</div>';
+
+  // Names
+  $('namesList').innerHTML = db.settings.names.map((v,i) => `
+    <div class="item-row">
+      <input type="text" data-type="names" data-i="${i}" value="${esc(v)}">
+      <button class="del" data-del="names" data-i="${i}">✕</button>
+    </div>`).join('') || '<div class="empty" style="padding:14px">لا توجد أسماء</div>';
+
+  // Roles
+  $('rolesList').innerHTML = db.settings.roles.map((v,i) => `
+    <div class="item-row">
+      <input type="text" data-type="roles" data-i="${i}" value="${esc(v)}">
+      <button class="del" data-del="roles" data-i="${i}">✕</button>
+    </div>`).join('') || '<div class="empty" style="padding:14px">لا توجد وظائف</div>';
+
+  // Rates
+  $('ratesList').innerHTML = db.settings.roles.map((r,i) => {
+    const rate = db.settings.rates[r] || { min: 0, max: 0 };
+    return `
+      <div class="item-row">
+        <span style="flex:1;font-size:13px;font-weight:700">${esc(r)}</span>
+        <input type="number" min="0" step="0.5" data-rate="min" data-role="${esc(r)}" value="${rate.min || 0}">
+        <input type="number" min="0" step="0.5" data-rate="max" data-role="${esc(r)}" value="${rate.max || 0}">
+      </div>`;
+  }).join('') || '<div class="empty" style="padding:14px">أضف وظائف أولاً</div>';
+
+  bindSettingsEvents();
+}
+
+function bindSettingsEvents(){
+  // Edit existing items
+  $$('.item-row input[type=text]').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const type = inp.dataset.type;
+      const i = Number(inp.dataset.i);
+      const oldVal = db.settings[type][i];
+      const newVal = inp.value.trim();
+      if(!newVal){ inp.value = oldVal; return; }
+      db.settings[type][i] = newVal;
+      if(type === 'roles' && db.settings.rates[oldVal]){
+        db.settings.rates[newVal] = db.settings.rates[oldVal];
+        delete db.settings.rates[oldVal];
+      }
+      saveDB(); fillAllSelects(); renderSettings();
+    });
+  });
+
+  // Delete
+  $$('.del').forEach(btn => {
+    btn.onclick = () => {
+      const type = btn.dataset.del;
+      const i = Number(btn.dataset.i);
+      if(!confirm('حذف هذا العنصر؟')) return;
+      const removed = db.settings[type][i];
+      db.settings[type].splice(i,1);
+      if(type === 'roles') delete db.settings.rates[removed];
+      saveDB(); fillAllSelects(); renderSettings();
+    };
+  });
+
+  // Rates edit
+  $$('input[data-rate]').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const role = inp.dataset.role;
+      const kind = inp.dataset.rate;
+      if(!db.settings.rates[role]) db.settings.rates[role] = { min: 0, max: 0 };
+      db.settings.rates[role][kind] = Number(inp.value) || 0;
+      saveDB();
+    });
+  });
+}
+
+/* ================= Backup ================= */
+function exportBackup(){
+  const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `fgelite-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+async function importBackup(file){
+  try{
+    const x = JSON.parse(await file.text());
+    if(!x.events || !x.settings) throw new Error();
+    if(!x.settings.rates) x.settings.rates = {};
+    db = x;
+    saveDB(); renderAll(); toast('تمت استعادة البيانات');
+  } catch {
+    toast('ملف النسخة الاحتياطية غير صالح');
+  }
+}
+
+/* ================= Init ================= */
+$('monthPicker').value = new Date().toISOString().slice(0,7);
+$('reportMonth').value  = new Date().toISOString().slice(0,7);
+fillAllSelects();
+addPersonRow();
+renderAll();
+
+/* Tabs */
+$$('.tab').forEach(t => t.onclick = () => showView(t.dataset.view));
+
+/* Add view */
+$('addPersonBtn').onclick = () => addPersonRow();
+$('saveEventBtn').onclick = saveEvent;
+$('clearFormBtn').onclick = clearForm;
+$('newEventBtn').onclick = () => { clearForm(); showView('add'); };
+
+/* Events view */
+$('eventSearch').oninput = renderEvents;
+
+/* Home */
+$('monthPicker').onchange = () => {
+  renderHome();
+  $('reportMonth').value = $('monthPicker').value;
+  renderReport();
+};
+
+/* Report mode switch */
+$$('.mode-btn').forEach(btn => {
+  btn.onclick = () => {
+    $$('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    reportMode = btn.dataset.mode;
+    $('reportMonthWrap').style.display = reportMode === 'month' ? 'block' : 'none';
+    $('reportEventWrap').style.display = reportMode === 'event' ? 'block' : 'none';
+    renderReport();
+  };
+});
+$('reportMonth').onchange = renderReport;
+$('reportEvent').onchange = renderReport;
+$('printBtn').onclick = () => window.print();
+
+/* Backup */
+$('backupBtn').onclick = exportBackup;
+$('restoreBtn').onclick = () => $('restoreInput').click();
+$('restoreInput').onchange = e => { const f = e.target.files[0]; if(f) importBackup(f); };
+
+/* Settings modal */
+$('settingsBtn').onclick = openSettings;
+$('closeSettings').onclick = closeSettings;
+$('settingsModal').addEventListener('click', e => { if(e.target.id === 'settingsModal') closeSettings(); });
+
+$$('.settings-tab').forEach(t => {
+  t.onclick = () => {
+    $$('.settings-tab').forEach(x => x.classList.remove('active'));
+    $$('.settings-pane').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.querySelector(`.settings-pane[data-pane="${t.dataset.pane}"]`).classList.add('active');
+  };
+});
+
+/* Quick add from settings */
+$('addVenueBtn').onclick = () => {
+  const v = $('newVenue').value.trim();
+  if(!v) return;
+  if(!db.settings.venues.includes(v)) db.settings.venues.push(v);
+  $('newVenue').value = '';
+  saveDB(); fillAllSelects(); renderSettings();
+};
+$('addNameBtn').onclick = () => {
+  const v = $('newName').value.trim();
+  if(!v) return;
+  if(!db.settings.names.includes(v)) db.settings.names.push(v);
+  $('newName').value = '';
+  saveDB(); fillAllSelects(); renderSettings();
+};
+$('addRoleBtn').onclick = () => {
+  const v = $('newRole').value.trim();
+  if(!v) return;
+  if(!db.settings.roles.includes(v)) db.settings.roles.push(v);
+  $('newRole').value = '';
+  saveDB(); fillAllSelects(); renderSettings();
+};
+
+/* Enter to add */
+$('newVenue').addEventListener('keydown', e => { if(e.key === 'Enter') $('addVenueBtn').click(); });
+$('newName').addEventListener('keydown',  e => { if(e.key === 'Enter') $('addNameBtn').click(); });
+$('newRole').addEventListener('keydown',  e => { if(e.key === 'Enter') $('addRoleBtn').click(); });
+
+/* Expose for inline handlers */
+window.editEvent = editEvent;
+window.deleteEvent = deleteEvent;
+</script>
+</body>
+</html>

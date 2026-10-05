@@ -1,5 +1,9 @@
-فانتسي - تطبيق سجل الحفلات
+FG Elite — تطبيق سجل الحفلات (PWA)
 
-هذا تطبيق ويب تقدمي PWA مناسب لـ iPhone/iOS. ارفع الملفات الثلاثة (index.html, manifest.json, icon.svg) إلى استضافة HTTPS مثل GitHub Pages أو Netlify ثم افتح الرابط في Safari واختر Add to Home Screen ثم Open as Web App.
+رفع الملفات (index.html, manifest.json, sw.js, icon.svg, logo.svg)
+إلى استضافة HTTPS مثل GitHub Pages أو Netlify، ثم افتح الرابط في
+Safari على iPhone واختر Add to Home Screen.
 
-البيانات تحفظ محليًا على الجهاز داخل المتصفح، لذلك استخدم زر تصدير نسخة احتياطية بشكل دوري.
+• البيانات تُحفظ محليًا في متصفح الجهاز.
+• استخدم زر "تصدير نسخة احتياطية" بشكل دوري.
+• يمكنك إضافة أماكن وأسماء ووظائف وأسعار من قائمة الإعدادات.
