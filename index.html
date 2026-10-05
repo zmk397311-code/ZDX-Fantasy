@@ -470,8 +470,8 @@ if ('serviceWorker' in navigator)
 const KEY = 'fgelite_events_v1';
 const defaults = {
   venues: ['GATE MALL', 'BOWLING MALL'],
-  names: ['بيبو', 'كرومي', 'بو لبن', 'عدنان', 'جسوم', 'بووليد', 'عبد الهادي', 'أحمد'],
-  roles: ['مصور', 'منظم', 'مقدم', 'DJ', 'طالب', 'مساعد مقدم', 'عازف', 'فني'],
+  names: ['بيبو', 'بو لبن', 'عدنان', 'جسوم', 'بووليد', 'عبد الهادي', 'أحمد'],
+  roles: ['مصور', 'منظم', 'مقدم', 'DJ', 'مساعد مقدم', 'اضائات'],
   rates: {}
 };
 let db = JSON.parse(localStorage.getItem(KEY) || 'null') || { events: [], settings: { ...defaults } };
@@ -555,7 +555,7 @@ function addPersonRow(data = {}){
     </div>
     <div class="grid">
       <div class="field" style="margin:0">
-        <label>اسم الشخص</label>
+        <label>العبد</label>
         <select class="pname"></select>
       </div>
       <div class="field" style="margin:0">
@@ -789,7 +789,7 @@ function renderReport(){
     <table class="report-table">
       <thead>
         <tr>
-          <th style="width:22%">الشخص</th>
+          <th style="width:22%">العبد</th>
           <th style="width:22%">الوظيفة</th>
           <th>تفاصيل</th>
           <th style="width:14%">إجمالي الحفلات</th>
