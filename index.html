@@ -867,23 +867,21 @@ function renderReport(){
   const section1 = `
     <h3>١ — ملخص الحفلات</h3>
     <table class="report-table">
-      <thead>
-        <tr>
-          <th>التاريخ</th>
-          <th>المكان</th>
-          <th>الفقرات</th>
-          <th>التوالف</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${events.map(e => `
-          <tr>
-            <td>${fmtDate(e.date)}</td>
-            <td>${esc(e.venue)}</td>
-            <td>${esc(e.acts || '—')}</td>
-            <td>${esc(e.notes || '—')}</td>
-          </tr>`).join('')}
-      </tbody>
+<thead>
+  <tr>
+    <th>عدد المشاركين</th>
+    <th>الحد الأدنى</th>
+    <th>الحد الأعلى</th>
+  </tr>
+</thead>
+<tbody>
+  ${estimate.rows.map(r => `
+    <tr>
+      <td style="text-align:center">${r.event.people.length}</td>
+      <td>${r.min.toFixed(2)} د.ك</td>
+      <td>${r.max.toFixed(2)} د.ك</td>
+    </tr>`).join('')}
+</tbody>
     </table>`;
 
   /* ---------- Section 2: Participants ---------- */
@@ -894,7 +892,7 @@ function renderReport(){
         <tr>
           <th style="width:22%">العبد</th>
           <th style="width:22%">الوظيفة</th>
-          <th>تفاصيل</th>
+          <th>التاريخ و المكان</th>
           <th style="width:14%">إجمالي الحفلات</th>
         </tr>
       </thead>
@@ -908,7 +906,7 @@ function renderReport(){
               <td>
                 ${v.items.map(i => `
                   <div style="font-size:11px;color:#444;margin-bottom:2px">
-                    ${fmtDateShort(i.date)} — ${esc(i.venue)} — ${esc((i.roles || (i.role ? [i.role] : [])).join('، ') || '—')}
+                    ${fmtDate(i.date)} — ${esc(i.venue)}
                   </div>`).join('')}
               </td>
               <td style="text-align:center"><b>${v.count}</b></td>
