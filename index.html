@@ -38,7 +38,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 header{
   position:sticky;top:0;z-index:100;
   background:rgba(13,13,16,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);padding:12px 16px;
+  border-bottom:1px solid var(--line);
+  padding:12px 16px;
+  padding-top:calc(12px + env(safe-area-inset-top));
 }
 .header-inner{max-width:920px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand-logo{height:42px;width:auto;display:block}
