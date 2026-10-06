@@ -758,22 +758,9 @@ function deleteEvent(id){
 function renderHome(){
   const m = $('monthPicker').value || new Date().toISOString().slice(0,7);
   const arr = db.events.filter(e => monthOf(e.date) === m);
-  const entries = arr.reduce((n,e) => n + e.people.length, 0);
   const names = new Set(arr.flatMap(e => e.people.map(p => p.name)));
   $('statEvents').textContent = arr.length;
   $('statPeople').textContent = names.size;
-  $('statEntries').textContent = entries;
-  const recent = [...arr].sort((a,b) => b.date.localeCompare(a.date)).slice(0,6);
-  $('homeEvents').innerHTML = recent.length
-    ? recent.map(e => `
-        <div class="event">
-          <div class="event-head">
-            <div class="event-date">${fmtDate(e.date)}</div>
-            <span class="pill">${esc(e.venue)}</span>
-          </div>
-          <div class="mini">${e.people.length} مشارك${e.acts ? ' · ' + esc(e.acts) : ''}</div>
-        </div>`).join('')
-    : '<div class="empty">لا توجد حفلات لهذا الشهر</div>';
 }
 
 function renderEvents(){
