@@ -426,8 +426,8 @@ header{
         <div class="field"><label>تاريخ الحفلة *</label><input id="eventDate" type="date"></div>
         <div class="field"><label>المكان *</label><select id="eventVenue"></select></div>
       </div>
-      <div class="field"><label>الفقرات / الأنشطة</label><textarea id="eventActs" placeholder="مثال: go gambo - bubble - dogs"></textarea></div>
-      <div class="field"><label>ملاحظات</label><textarea id="eventNotes" placeholder="أي ملاحظة عن الحفلة"></textarea></div>
+      <div class="field"><label>الفقرات / الأنشطة</label><textarea id="eventActs"></textarea></div>
+      <div class="field"><label>التوالف</label><textarea id="eventNotes" placeholder="توالف أو ملاحظات"></textarea></div>
     </div>
     <div class="card">
       <div class="topline">
@@ -976,34 +976,34 @@ function renderReport(){
       </table>`;
   }
 
-  /* ---------- Section 3: Estimate ---------- */
-  const section3 = `
-    <h3>٣ — التقدير المالي (الحد الأدنى / الأعلى)</h3>
-    <table class="report-table">
-      <thead>
-        <tr>
-          <th>عدد المشاركين</th>
-          <th>الحد الأدنى</th>
-          <th>الحد الأعلى</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${estimate.rows.map(r => `
-          <tr>
-            <td style="text-align:center">${r.event.people.length}</td>
-            <td>${r.min.toFixed(2)} د.ك</td>
-            <td>${r.max.toFixed(2)} د.ك</td>
-          </tr>`).join('')}
-      </tbody>
-    </table>
-    <div class="report-total">
-      <div><small>إجمالي الحد الأدنى</small><strong>${estimate.totalMin.toFixed(2)} د.ك</strong></div>
-      <div><small>إجمالي الحد الأعلى</small><strong>${estimate.totalMax.toFixed(2)} د.ك</strong></div>
-      <div><small>المتوسط التقريبي</small><strong>${((estimate.totalMin + estimate.totalMax) / 2).toFixed(2)} د.ك</strong></div>
-    </div>
-    <p style="font-size:11px;color:#777;margin-top:14px;text-align:center">
-      * الأسعار تقديرية بناءً على المعدلات المحددة في الإعدادات لكل وظيفة.
-    </p>`;
+/* ---------- Section 3: Estimate ---------- */
+const totalParticipants = events.reduce((n, e) => n + e.people.length, 0);
+const section3 = `
+  <h3>٣ — التقدير المالي (الحد الأدنى / الأعلى)</h3>
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th>عدد المشاركين</th>
+        <th>الحد الأدنى</th>
+        <th>الحد الأعلى</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center;font-weight:900;font-size:16px">${totalParticipants}</td>
+        <td style="font-weight:700">${estimate.totalMin.toFixed(2)} د.ك</td>
+        <td style="font-weight:700">${estimate.totalMax.toFixed(2)} د.ك</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="report-total">
+    <div><small>إجمالي الحد الأدنى</small><strong>${estimate.totalMin.toFixed(2)} د.ك</strong></div>
+    <div><small>إجمالي الحد الأعلى</small><strong>${estimate.totalMax.toFixed(2)} د.ك</strong></div>
+    <div><small>المتوسط التقريبي</small><strong>${((estimate.totalMin + estimate.totalMax) / 2).toFixed(2)} د.ك</strong></div>
+  </div>
+  <p style="font-size:11px;color:#777;margin-top:14px;text-align:center">
+    * الأسعار تقديرية تقريبية و ليست معتمدة أو مؤكدة.
+  </p>`;
 
   /* ---------- Full report ---------- */
   content.innerHTML = `
@@ -1017,7 +1017,7 @@ function renderReport(){
     ${section2}
     ${section3}
     <p style="text-align:center;font-size:11px;color:#999;margin-top:26px">
-      تم إنشاء التقرير بتاريخ ${new Date().toLocaleDateString('ar-KW')} — FG Elite
+      تم إنشاء التقرير بتاريخ ${new Date().toLocaleDateString('ar-KW')} — Programmed by ZDX
     </p>`;
 }
 
