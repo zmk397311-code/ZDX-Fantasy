@@ -173,13 +173,30 @@ header{
   box-shadow:var(--shadow);
 }
 .report-cover{
-  text-align:center;border-bottom:3px solid var(--orange);
-  padding:18px 8px 24px;margin-bottom:22px;
+  text-align:center;
+  background:linear-gradient(135deg,#0d0d10 0%,#1a1a24 50%,#0d0d10 100%);
+  border-radius:18px;
+  padding:32px 20px 36px;
+  margin-bottom:26px;
+  box-shadow:0 12px 40px rgba(0,0,0,.35), inset 0 0 0 1px rgba(232,93,31,.15);
+  position:relative;
+  overflow:hidden;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
 }
-.report-cover img{max-height:70px;margin-bottom:8px}
-.report-cover h1{font-size:24px;margin:6px 0;color:#111;font-weight:900;letter-spacing:-.5px}
-.report-cover h2{font-size:15px;margin:4px 0;color:#555;font-weight:700}
-.report-cover p{margin:8px 0 0;color:#666;font-size:13px}
+.report-cover::before{
+  content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;
+  background:radial-gradient(circle,rgba(232,93,31,.25),transparent 70%);
+  pointer-events:none;
+}
+.report-cover::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+}
+.report-cover img{max-height:80px;margin-bottom:14px;position:relative;z-index:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5))}
+.report-cover h1{font-size:26px;margin:8px 0;color:#fff;font-weight:900;letter-spacing:-.5px;position:relative;z-index:1}
+.report-cover h2{font-size:16px;margin:4px 0;color:#ff7a3d;font-weight:800;position:relative;z-index:1}
+.report-cover p{margin:10px 0 0;color:#b8b8c4;font-size:13px;position:relative;z-index:1}
 .report h3{
   font-size:15px;margin:26px 0 10px;color:#111;font-weight:900;
   padding:8px 12px;background:#f4f4f6;border-right:4px solid var(--orange);
@@ -841,10 +858,10 @@ function renderReport(){
     if(e){
       events = [e];
       periodLabel = fmtDate(e.date) + ' — ' + e.venue;
-      coverTitle = 'تقرير حفلة';
+      coverTitle = 'تقرير الحفلة';
     } else {
       periodLabel = '—';
-      coverTitle = 'تقرير حفلة';
+      coverTitle = 'تقرير الحفلة';
     }
   }
 
@@ -862,66 +879,109 @@ function renderReport(){
 
   const map = personSummary(events);
   const estimate = calcEstimate(events);
+  const isSingle = reportMode === 'event';
+
+  /* ---------- Cover totals line ---------- */
+  const totalLine = isSingle
+    ? ''
+    : `<p>إجمالي الحفلات: ${events.length} — إجمالي المشاركات: ${events.reduce((n,e) => n + e.people.length, 0)}</p>`;
 
   /* ---------- Section 1: Summary ---------- */
-  const section1 = `
-    <h3>١ — ملخص الحفلات</h3>
-    <table class="report-table">
-<thead>
-  <tr>
-    <th>عدد المشاركين</th>
-    <th>الحد الأدنى</th>
-    <th>الحد الأعلى</th>
-  </tr>
-</thead>
-<tbody>
-  ${estimate.rows.map(r => `
-    <tr>
-      <td style="text-align:center">${r.event.people.length}</td>
-      <td>${r.min.toFixed(2)} د.ك</td>
-      <td>${r.max.toFixed(2)} د.ك</td>
-    </tr>`).join('')}
-</tbody>
-    </table>`;
+  let section1 = '';
+  if(isSingle){
+    const e = events[0];
+    section1 = `
+      <h3>١ — الحفلة</h3>
+      <table class="report-table">
+        <tbody>
+          <tr><th style="width:30%">التاريخ</th><td>${fmtDate(e.date)}</td></tr>
+          <tr><th>المكان</th><td>${esc(e.venue)}</td></tr>
+          <tr><th>الفقرات</th><td>${esc(e.acts || '—')}</td></tr>
+          <tr><th>الملاحظات</th><td>${esc(e.notes || '—')}</td></tr>
+        </tbody>
+      </table>`;
+  } else {
+    section1 = `
+      <h3>١ — ملخص الحفلات</h3>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>التاريخ</th>
+            <th>المكان</th>
+            <th>الفقرات</th>
+            <th>الملاحظات</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${events.map(e => `
+            <tr>
+              <td>${fmtDate(e.date)}</td>
+              <td>${esc(e.venue)}</td>
+              <td>${esc(e.acts || '—')}</td>
+              <td>${esc(e.notes || '—')}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
 
   /* ---------- Section 2: Participants ---------- */
-  const section2 = `
-    <h3>٢ — كشف المشاركين</h3>
-    <table class="report-table">
-      <thead>
-        <tr>
-          <th style="width:22%">العبد</th>
-          <th style="width:22%">الوظيفة</th>
-          <th>التاريخ و المكان</th>
-          <th style="width:14%">إجمالي الحفلات</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${Object.entries(map)
-          .sort((a,b) => b[1].count - a[1].count)
-          .map(([name, v]) => `
+  let section2 = '';
+  if(isSingle){
+    const e = events[0];
+    section2 = `
+      <h3>٢ — كشف المشاركين</h3>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width:40%">الشخص</th>
+            <th>الوظيفة</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${e.people.map(p => `
             <tr>
-              <td><b>${esc(name)}</b></td>
-              <td>${esc([...v.roles].join('، ') || '—')}</td>
-              <td>
-                ${v.items.map(i => `
-                  <div style="font-size:11px;color:#444;margin-bottom:2px">
-                    ${fmtDate(i.date)} — ${esc(i.venue)}
-                  </div>`).join('')}
-              </td>
-              <td style="text-align:center"><b>${v.count}</b></td>
+              <td><b>${esc(p.name)}</b></td>
+              <td>${esc((p.roles || (p.role ? [p.role] : [])).join('، ') || '—')}</td>
             </tr>`).join('')}
-      </tbody>
-    </table>`;
+        </tbody>
+      </table>`;
+  } else {
+    section2 = `
+      <h3>٢ — كشف المشاركين</h3>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width:20%">الشخص</th>
+            <th style="width:20%">الوظيفة</th>
+            <th>التاريخ و المكان</th>
+            <th style="width:13%">إجمالي الحفلات</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${Object.entries(map)
+            .sort((a,b) => b[1].count - a[1].count)
+            .map(([name, v]) => `
+              <tr>
+                <td><b>${esc(name)}</b></td>
+                <td>${esc([...v.roles].join('، ') || '—')}</td>
+                <td>
+                  ${v.items.map(i => `
+                    <div style="font-size:11px;color:#444;margin-bottom:2px">
+                      ${fmtDate(i.date)} — ${esc(i.venue)}
+                    </div>`).join('')}
+                </td>
+                <td style="text-align:center"><b>${v.count}</b></td>
+              </tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
 
-  /* ---------- Section 3: Min/Max Estimate ---------- */
+  /* ---------- Section 3: Estimate ---------- */
   const section3 = `
     <h3>٣ — التقدير المالي (الحد الأدنى / الأعلى)</h3>
     <table class="report-table">
       <thead>
         <tr>
-          <th>التاريخ</th>
-          <th>المكان</th>
           <th>عدد المشاركين</th>
           <th>الحد الأدنى</th>
           <th>الحد الأعلى</th>
@@ -930,8 +990,6 @@ function renderReport(){
       <tbody>
         ${estimate.rows.map(r => `
           <tr>
-            <td>${fmtDateShort(r.event.date)}</td>
-            <td>${esc(r.event.venue)}</td>
             <td style="text-align:center">${r.event.people.length}</td>
             <td>${r.min.toFixed(2)} د.ك</td>
             <td>${r.max.toFixed(2)} د.ك</td>
@@ -953,7 +1011,7 @@ function renderReport(){
       <img src="logo.svg" alt="FG Elite">
       <h1>${coverTitle}</h1>
       <h2>${periodLabel}</h2>
-      <p>إجمالي الحفلات: ${events.length} — إجمالي المشاركات: ${events.reduce((n,e) => n + e.people.length, 0)}</p>
+      ${totalLine}
     </div>
     ${section1}
     ${section2}
