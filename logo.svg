@@ -1,20 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1783 546" preserveAspectRatio="xMidYMid meet">
-  <!-- الخلفية الداكنة -->
-  <rect width="1783" height="546" fill="#1a1a1a"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" preserveAspectRatio="xMidYMid meet">
+  <!-- لا توجد خلفية هنا، اللوقو شفاف تماماً ليندمج مع التطبيق -->
   
   <!-- كلمة FG باللون البرتقالي -->
-  <g font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="340" letter-spacing="-12">
-    <text x="50" y="330" fill="#e85d1f">FG</text>
+  <g transform="scale(1.05, 1)">
+    <text x="40" y="205" font-family="'Arial Black', 'Helvetica Neue', Impact, sans-serif" font-weight="900" font-size="220" fill="#ea5b17" letter-spacing="-8">FG</text>
   </g>
   
   <!-- كلمة ELITE باللون الأبيض -->
-  <g font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="340" letter-spacing="-8">
-    <text x="580" y="330" fill="#ffffff">ELITE</text>
+  <g transform="scale(1.05, 1)">
+    <text x="400" y="205" font-family="'Arial Black', 'Helvetica Neue', Impact, sans-serif" font-weight="900" font-size="220" fill="#ffffff" letter-spacing="-10">ELITE</text>
   </g>
   
   <!-- الخط البرتقالي الفاصل -->
-  <rect x="50" y="380" width="1683" height="16" fill="#e85d1f"/>
+  <rect x="40" y="238" width="1120" height="12" fill="#ea5b17" rx="2"/>
   
   <!-- النص السفلي -->
-  <text x="891" y="480" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="46" fill="#ffffff" text-anchor="middle" letter-spacing="4">PRODUCTION MULTIMEDIA LIGHTING SOUND SCREENS</text>
+  <text x="600" y="300" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="30" fill="#ffffff" text-anchor="middle" letter-spacing="3">PRODUCTION  MULTIMEDIA  LIGHTING  SOUND  SCREENS</text>
 </svg>
