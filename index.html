@@ -1245,9 +1245,62 @@ $$('.mode-btn').forEach(btn => {
 });
 $('reportMonth').onchange = renderReport;
 $('reportEvent').onchange = renderReport;
-$('printBtn').onclick = () => {
-  const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+$('printBtn').onclick = async () => {
+  const btn = $('printBtn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '⏳ جاري إنشاء ملف PDF...';
+  btn.disabled = true;
+
+  try {
+    const reportElement = document.getElementById('reportContent');
+    
+    // تحويل محتوى التقرير إلى صورة بدقة عالية
+    const canvas = await html2canvas(reportElement, {
+      scale: 2, // دقة عالية
+      useCORS: true,
+      backgroundColor: '#ffffff'
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    
+    // إنشاء ملف PDF كمصفوفة بايتات (Blob)
+    const pdfBlob = pdf.output('blob');
+    const fileName = `FG-Elite-Report-${new Date().toISOString().slice(0,10)}.pdf`;
+    const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+    // التحقق من دعم مشاركة الملفات
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        title: 'تقرير FG Elite',
+        text: 'تقرير الحفلات من تطبيق FG Elite'
+      });
+    } else {
+      // خطة بديلة: تنزيل الملف مباشرة (لأجهزة الكمبيوتر أو المتصفحات التي لا تدعم المشاركة)
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  } catch (error) {
+    console.error('خطأ في إنشاء PDF:', error);
+    alert('حدث خطأ أثناء إنشاء ملف PDF. يرجى المحاولة مرة أخرى.');
+  } finally {
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+};
   
   if (isIOS && isStandalone) {
     alert('لحفظ التقرير كـ PDF على الآيفون:\n\n1. اضغط على زر "المشاركة" (Share) في الأسفل أو الأعلى.\n2. اختر "طباعة" (Print).\n3. قم بعمل تكبير للصفحة (Pinch out) لتظهر لك خيار "حفظ كـ PDF".\n\nأو افتح الرابط في متصفح Safari واضغط طباعة.');
@@ -1309,5 +1362,7 @@ $('newRole').addEventListener('keydown',  e => { if(e.key === 'Enter') $('addRol
 window.editEvent = editEvent;
 window.deleteEvent = deleteEvent;
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
