@@ -1230,7 +1230,7 @@ $$('.mode-btn').forEach(btn => {
 $('reportMonth').onchange = renderReport;
 $('reportEvent').onchange = renderReport;
 
-/* Print/PDF */
+/* Print/PDF (HTML to Image) */
 $('printBtn').onclick = async () => {
   const btn = $('printBtn');
   const originalText = btn.innerHTML;
@@ -1240,20 +1240,21 @@ $('printBtn').onclick = async () => {
   try {
     const reportElement = document.getElementById('reportContent');
     
-    const canvas = await html2canvas(reportElement, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: '#ffffff'
+    // استخدام html-to-image بدلاً من html2canvas لدعم العربية بشكل مثالي
+    const dataUrl = await htmlToImage.toPng(reportElement, {
+      pixelRatio: 2,
+      backgroundColor: '#ffffff',
+      cacheBust: true
     });
 
-    const imgData = canvas.toDataURL('image/png');
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p', 'mm', 'a4');
     
     const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    const imgProps = pdf.getImageProperties(dataUrl);
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
     
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
     
     const pdfBlob = pdf.output('blob');
     const fileName = `FG-Elite-Report-${new Date().toISOString().slice(0,10)}.pdf`;
@@ -1335,7 +1336,7 @@ $('newRole').addEventListener('keydown',  e => { if(e.key === 'Enter') $('addRol
 window.editEvent = editEvent;
 window.deleteEvent = deleteEvent;
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
