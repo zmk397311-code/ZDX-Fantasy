@@ -1240,21 +1240,35 @@ $('printBtn').onclick = async () => {
   try {
     const reportElement = document.getElementById('reportContent');
     
-    // استخدام html-to-image بدلاً من html2canvas لدعم العربية بشكل مثالي
     const dataUrl = await htmlToImage.toPng(reportElement, {
       pixelRatio: 2,
-      backgroundColor: '#ffffff',
-      cacheBust: true
+      backgroundColor: '#ffffff'
     });
 
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p', 'mm', 'a4');
     
     const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight(); // ارتفاع الصفحة الواحدة
     const imgProps = pdf.getImageProperties(dataUrl);
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
     
-    pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    // حساب أبعاد الصورة بناءً على عرض الصفحة
+    const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    // إضافة الصفحة الأولى
+    pdf.addImage(dataUrl, 'PNG', 0, position, pdfWidth, imgHeight);
+    heightLeft -= pdfHeight;
+
+    // إضافة الصفحات المتبقية إذا كان التقرير طويلاً
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(dataUrl, 'PNG', 0, position, pdfWidth, imgHeight);
+      heightLeft -= pdfHeight;
+    }
     
     const pdfBlob = pdf.output('blob');
     const fileName = `FG-Elite-Report-${new Date().toISOString().slice(0,10)}.pdf`;
