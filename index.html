@@ -531,7 +531,7 @@ const KEY = 'fgelite_events_v1';
 const defaults = {
   venues: ['GATE MALL', 'BOWLING MALL'],
   names: ['بيبو', 'بو لبن', 'عدنان', 'جسوم', 'بووليد', 'عبد الهادي', 'أحمد'],
-  roles: ['مصور', 'منظم', 'مقدم', 'DJ', 'مساعد مقدم', 'اضائات'],
+  roles: ['مصور', 'منظم', 'مقدم', 'DJ', 'مساعد مقدم', 'اضائات', 'شخصية'],
   rates: {}
 };
 let db = JSON.parse(localStorage.getItem(KEY) || 'null') || { events: [], settings: { ...defaults } };
@@ -616,7 +616,7 @@ function addPersonRow(data = {}){
     </div>
     <div class="grid">
       <div class="field" style="margin:0">
-        <label>العبد</label>
+        <label>اسم الشخص</label>
         <select class="pname"></select>
       </div>
       <div class="field" style="margin:0">
@@ -624,6 +624,9 @@ function addPersonRow(data = {}){
         <div class="ms-wrap">
           <div class="ms-display"><span class="ms-placeholder">اختر الوظائف...</span></div>
           <div class="ms-dropdown"></div>
+        </div>
+        <div class="char-wrap" style="display:none; margin-top:8px;">
+          <input type="text" class="char-input" placeholder="اكتب اسم الشخصية (مثال: بارني + ستتش)" style="width:100%;border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:11px 12px;background:var(--surface);outline:none;color:var(--text);">
         </div>
       </div>
     </div>
@@ -635,9 +638,24 @@ function addPersonRow(data = {}){
 
   const display = wrap.querySelector('.ms-display');
   const dropdown = wrap.querySelector('.ms-dropdown');
+  const charWrap = wrap.querySelector('.char-wrap');
+  const charInput = wrap.querySelector('.char-input');
+  
+  if(data.charName) charInput.value = data.charName;
+
   wrap._getRoles = () => selected.slice();
+  wrap._getCharName = () => charInput.value.trim();
+
+  function checkChar() {
+    if(selected.includes('شخصية')) {
+      charWrap.style.display = 'block';
+    } else {
+      charWrap.style.display = 'none';
+    }
+  }
 
   function renderDisplay(){
+    checkChar();
     if(!selected.length){
       display.innerHTML = '<span class="ms-placeholder">اختر الوظائف...</span>';
       return;
@@ -716,11 +734,26 @@ function clearForm(){
 }
 function collectForm(){
   const people = [...document.querySelectorAll('.person-row')]
-    .map(r => ({
-      name: r.querySelector('.pname').value,
-      roles: r._getRoles ? r._getRoles() : []
-    }))
+    .map(r => {
+      let finalRoles = r._getRoles ? r._getRoles() : [];
+      const charName = r._getCharName ? r._getCharName() : '';
+      
+      if(finalRoles.includes('شخصية')){
+        finalRoles = finalRoles.filter(x => x !== 'شخصية');
+        if(charName) {
+          finalRoles.push(`شخصية = ( ${charName} )`);
+        } else {
+          finalRoles.push('شخصية');
+        }
+      }
+      
+      return {
+        name: r.querySelector('.pname').value,
+        roles: finalRoles
+      };
+    })
     .filter(p => p.name);
+    
   return {
     date: $('eventDate').value,
     venue: $('eventVenue').value,
@@ -757,18 +790,23 @@ function editEvent(id){
   $('eventActs').value = e.acts || '';
   $('eventNotes').value = e.notes || '';
   $('peopleRows').innerHTML = '';
-  e.people.forEach(p => addPersonRow({ 
-    name: p.name, 
-    roles: p.roles || (p.role ? [p.role] : []) 
-  }));
+  
+  e.people.forEach(p => {
+    let roles = p.roles || (p.role ? [p.role] : []);
+    let charName = '';
+    const charRole = roles.find(r => r.startsWith('شخصية = ('));
+    
+    if(charRole) {
+      charName = charRole.replace('شخصية = (', '').replace(')', '').trim();
+      roles = roles.filter(r => r !== charRole);
+      roles.push('شخصية');
+    }
+    
+    addPersonRow({ name: p.name, roles: roles, charName: charName });
+  });
+  
   $('saveEventBtn').dataset.edit = id;
   window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-function deleteEvent(id){
-  if(confirm('هل تريد حذف هذه الحفلة؟')){
-    db.events = db.events.filter(e => e.id !== id);
-    saveDB(); renderAll(); toast('تم حذف الحفلة');
-  }
 }
 
 /* ================= Renders ================= */
@@ -1207,7 +1245,18 @@ $$('.mode-btn').forEach(btn => {
 });
 $('reportMonth').onchange = renderReport;
 $('reportEvent').onchange = renderReport;
-$('printBtn').onclick = () => window.print();
+$('printBtn').onclick = () => {
+  const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+  
+  if (isIOS && isStandalone) {
+    alert('لحفظ التقرير كـ PDF على الآيفون:\n\n1. اضغط على زر "المشاركة" (Share) في الأسفل أو الأعلى.\n2. اختر "طباعة" (Print).\n3. قم بعمل تكبير للصفحة (Pinch out) لتظهر لك خيار "حفظ كـ PDF".\n\nأو افتح الرابط في متصفح Safari واضغط طباعة.');
+    // محاولة فتح الطباعة أيضاً كخيار إضافي
+    setTimeout(() => { window.print(); }, 500);
+  } else {
+    window.print();
+  }
+};
 
 /* Backup */
 $('backupBtn').onclick = exportBackup;
