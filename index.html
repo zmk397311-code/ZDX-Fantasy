@@ -303,7 +303,7 @@ header{
 /* ===== Responsive ===== */
 @media(max-width:560px){
   .grid{grid-template-columns:1fr}
-  .stats{grid-template-columns:1fr 1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
   .tab{font-size:11.5px;padding:10px 3px}
   .report-total{grid-template-columns:1fr}
   .brand-logo{height:36px}
@@ -468,7 +468,7 @@ header{
       <div id="reportEventWrap" style="display:none">
         <div class="field"><label>اختر الحفلة</label><select id="reportEvent"></select></div>
       </div>
-      <button class="btn primary full" id="printBtn">📄 طباعة / حفظ PDF</button>
+      <button class="btn primary full" id="printBtn">📄 مشاركة التقرير (PDF)</button>
     </div>
     <div class="report" id="reportContent"></div>
   </section>
@@ -519,7 +519,7 @@ header{
 </div>
 
 <div class="toast" id="toast"></div>
-  <datalist id="rolesDatalist"></datalist>
+<datalist id="rolesDatalist"></datalist>
 
 <script>
 /* ================= Service Worker ================= */
@@ -557,7 +557,6 @@ function toast(msg){
   toast._t = setTimeout(() => t.classList.remove('show'), 1900);
 }
 
-/* Date with day name */
 function fmtDate(d){
   if(!d) return '';
   const [y,m,dd] = d.split('-').map(Number);
@@ -582,7 +581,6 @@ function optionHtml(list, selected, placeholder){
 }
 function fillVenueSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.venues, val, 'اختر المكان'); }
 function fillNameSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.names, val, 'اختر العبد'); }
-function fillRoleSelect(sel, val){ sel.innerHTML = optionHtml(db.settings.roles, val, 'اختر الوظيفة'); }
 
 function handleAddOption(select, type){
   select.addEventListener('change', () => {
@@ -592,11 +590,8 @@ function handleAddOption(select, type){
       const val = v.trim();
       const list = db.settings[type];
       if(!list.includes(val)){ list.push(val); saveDB(); }
-      // re-fill all selects of this type
       if(type === 'venues') $$('#eventVenue').forEach(s => { const cur = s.value; fillVenueSelect(s, cur); });
       if(type === 'names')  $$('.pname').forEach(s => { const cur = s.value; fillNameSelect(s, cur); });
-      if(type === 'roles')  $$('.prole').forEach(s => { const cur = s.value; fillRoleSelect(s, cur); });
-      // set the current select to the new value
       select.value = val;
     } else {
       select.value = '';
@@ -715,7 +710,6 @@ function addPersonRow(data = {}){
   $('peopleRows').appendChild(wrap);
 }
 
-// Close dropdowns when clicking anywhere else
 document.addEventListener('click', () => {
   document.querySelectorAll('.ms-dropdown.open').forEach(d => d.classList.remove('open'));
   document.querySelectorAll('.ms-display.open').forEach(d => d.classList.remove('open'));
@@ -808,6 +802,12 @@ function editEvent(id){
   $('saveEventBtn').dataset.edit = id;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+function deleteEvent(id){
+  if(confirm('هل تريد حذف هذه الحفلة؟')){
+    db.events = db.events.filter(e => e.id !== id);
+    saveDB(); renderAll(); toast('تم حذف الحفلة');
+  }
+}
 
 /* ================= Renders ================= */
 function renderHome(){
@@ -842,7 +842,6 @@ function renderEvents(){
     </div>`).join('') : '<div class="empty">لا توجد حفلات مسجلة</div>';
 }
 
-/* Person summary */
 function personSummary(arr){
   const map = {};
   arr.forEach(e => e.people.forEach(p => {
@@ -856,7 +855,6 @@ function personSummary(arr){
   return map;
 }
 
-/* Cost estimate */
 function calcEstimate(events){
   let totalMin = 0, totalMax = 0;
   const rows = events.map(e => {
@@ -880,7 +878,6 @@ let reportMode = 'month';
 
 function renderReport(){
   const content = $('reportContent');
-
   let events = [];
   let periodLabel = '';
   let coverTitle = '';
@@ -903,7 +900,6 @@ function renderReport(){
     }
   }
 
-  // --- Empty state ---
   if(!events.length){
     content.innerHTML = `
       <div class="report-cover">
@@ -919,12 +915,10 @@ function renderReport(){
   const estimate = calcEstimate(events);
   const isSingle = reportMode === 'event';
 
-  /* ---------- Cover totals line ---------- */
   const totalLine = isSingle
     ? ''
     : `<p>إجمالي الحفلات: ${events.length} — إجمالي المشاركات: ${events.reduce((n,e) => n + e.people.length, 0)}</p>`;
 
-  /* ---------- Section 1: Summary ---------- */
   let section1 = '';
   if(isSingle){
     const e = events[0];
@@ -962,7 +956,6 @@ function renderReport(){
       </table>`;
   }
 
-  /* ---------- Section 2: Participants ---------- */
   let section2 = '';
   if(isSingle){
     const e = events[0];
@@ -1014,36 +1007,34 @@ function renderReport(){
       </table>`;
   }
 
-/* ---------- Section 3: Estimate ---------- */
-const totalParticipants = events.reduce((n, e) => n + e.people.length, 0);
-const section3 = `
-  <h3>٣ — التقدير المالي (الحد الأدنى / الأعلى)</h3>
-  <table class="report-table">
-    <thead>
-      <tr>
-        <th>اجمالي عمل العبيد</th>
-        <th>الحد الأدنى</th>
-        <th>الحد الأعلى</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="text-align:center;font-weight:900;font-size:16px">${totalParticipants}</td>
-        <td style="font-weight:700">${estimate.totalMin.toFixed(2)} د.ك</td>
-        <td style="font-weight:700">${estimate.totalMax.toFixed(2)} د.ك</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="report-total">
-    <div><small>إجمالي الحد الأدنى</small><strong>${estimate.totalMin.toFixed(2)} د.ك</strong></div>
-    <div><small>إجمالي الحد الأعلى</small><strong>${estimate.totalMax.toFixed(2)} د.ك</strong></div>
-    <div><small>المتوسط التقريبي</small><strong>${((estimate.totalMin + estimate.totalMax) / 2).toFixed(2)} د.ك</strong></div>
-  </div>
-  <p style="font-size:11px;color:#777;margin-top:14px;text-align:center">
-    * الأسعار تقديرية تقريبية و ليست معتمدة أو مؤكدة.
-  </p>`;
+  const totalParticipants = events.reduce((n, e) => n + e.people.length, 0);
+  const section3 = `
+    <h3>٣ — التقدير المالي (الحد الأدنى / الأعلى)</h3>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>اجمالي عمل العبيد</th>
+          <th>الحد الأدنى</th>
+          <th>الحد الأعلى</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center;font-weight:900;font-size:16px">${totalParticipants}</td>
+          <td style="font-weight:700">${estimate.totalMin.toFixed(2)} د.ك</td>
+          <td style="font-weight:700">${estimate.totalMax.toFixed(2)} د.ك</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="report-total">
+      <div><small>إجمالي الحد الأدنى</small><strong>${estimate.totalMin.toFixed(2)} د.ك</strong></div>
+      <div><small>إجمالي الحد الأعلى</small><strong>${estimate.totalMax.toFixed(2)} د.ك</strong></div>
+      <div><small>المتوسط التقريبي</small><strong>${((estimate.totalMin + estimate.totalMax) / 2).toFixed(2)} د.ك</strong></div>
+    </div>
+    <p style="font-size:11px;color:#777;margin-top:14px;text-align:center">
+      * الأسعار تقديرية تقريبية و ليست معتمدة أو مؤكدة.
+    </p>`;
 
-  /* ---------- Full report ---------- */
   content.innerHTML = `
     <div class="report-cover">
       <img src="logo.svg" alt="FG Elite">
@@ -1107,28 +1098,24 @@ function closeSettings(){
 }
 
 function renderSettings(){
-  // Venues
   $('venuesList').innerHTML = db.settings.venues.map((v,i) => `
     <div class="item-row">
       <input type="text" data-type="venues" data-i="${i}" value="${esc(v)}">
       <button class="del" data-del="venues" data-i="${i}">✕</button>
     </div>`).join('') || '<div class="empty" style="padding:14px">لا توجد أماكن</div>';
 
-  // Names
   $('namesList').innerHTML = db.settings.names.map((v,i) => `
     <div class="item-row">
       <input type="text" data-type="names" data-i="${i}" value="${esc(v)}">
       <button class="del" data-del="names" data-i="${i}">✕</button>
     </div>`).join('') || '<div class="empty" style="padding:14px">لا توجد أسماء</div>';
 
-  // Roles
   $('rolesList').innerHTML = db.settings.roles.map((v,i) => `
     <div class="item-row">
       <input type="text" data-type="roles" data-i="${i}" value="${esc(v)}">
       <button class="del" data-del="roles" data-i="${i}">✕</button>
     </div>`).join('') || '<div class="empty" style="padding:14px">لا توجد وظائف</div>';
 
-  // Rates
   $('ratesList').innerHTML = db.settings.roles.map((r,i) => {
     const rate = db.settings.rates[r] || { min: 0, max: 0 };
     return `
@@ -1143,7 +1130,6 @@ function renderSettings(){
 }
 
 function bindSettingsEvents(){
-  // Edit existing items
   $$('.item-row input[type=text]').forEach(inp => {
     inp.addEventListener('change', () => {
       const type = inp.dataset.type;
@@ -1160,7 +1146,6 @@ function bindSettingsEvents(){
     });
   });
 
-  // Delete
   $$('.del').forEach(btn => {
     btn.onclick = () => {
       const type = btn.dataset.del;
@@ -1173,7 +1158,6 @@ function bindSettingsEvents(){
     };
   });
 
-  // Rates edit
   $$('input[data-rate]').forEach(inp => {
     inp.addEventListener('change', () => {
       const role = inp.dataset.role;
@@ -1245,6 +1229,8 @@ $$('.mode-btn').forEach(btn => {
 });
 $('reportMonth').onchange = renderReport;
 $('reportEvent').onchange = renderReport;
+
+/* Print/PDF */
 $('printBtn').onclick = async () => {
   const btn = $('printBtn');
   const originalText = btn.innerHTML;
@@ -1254,9 +1240,8 @@ $('printBtn').onclick = async () => {
   try {
     const reportElement = document.getElementById('reportContent');
     
-    // تحويل محتوى التقرير إلى صورة بدقة عالية
     const canvas = await html2canvas(reportElement, {
-      scale: 2, // دقة عالية
+      scale: 2,
       useCORS: true,
       backgroundColor: '#ffffff'
     });
@@ -1270,12 +1255,10 @@ $('printBtn').onclick = async () => {
     
     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     
-    // إنشاء ملف PDF كمصفوفة بايتات (Blob)
     const pdfBlob = pdf.output('blob');
     const fileName = `FG-Elite-Report-${new Date().toISOString().slice(0,10)}.pdf`;
     const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
 
-    // التحقق من دعم مشاركة الملفات
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       await navigator.share({
         files: [file],
@@ -1283,7 +1266,6 @@ $('printBtn').onclick = async () => {
         text: 'تقرير الحفلات من تطبيق FG Elite'
       });
     } else {
-      // خطة بديلة: تنزيل الملف مباشرة (لأجهزة الكمبيوتر أو المتصفحات التي لا تدعم المشاركة)
       const url = URL.createObjectURL(pdfBlob);
       const a = document.createElement('a');
       a.href = url;
@@ -1299,15 +1281,6 @@ $('printBtn').onclick = async () => {
   } finally {
     btn.innerHTML = originalText;
     btn.disabled = false;
-  }
-};
-  
-  if (isIOS && isStandalone) {
-    alert('لحفظ التقرير كـ PDF على الآيفون:\n\n1. اضغط على زر "المشاركة" (Share) في الأسفل أو الأعلى.\n2. اختر "طباعة" (Print).\n3. قم بعمل تكبير للصفحة (Pinch out) لتظهر لك خيار "حفظ كـ PDF".\n\nأو افتح الرابط في متصفح Safari واضغط طباعة.');
-    // محاولة فتح الطباعة أيضاً كخيار إضافي
-    setTimeout(() => { window.print(); }, 500);
-  } else {
-    window.print();
   }
 };
 
